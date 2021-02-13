@@ -4,7 +4,7 @@
 - [Project One Proposal](https://docs.google.com/document/d/1D37vekXQF5yZ1XIk86QCM60h-NepSj-_KOx9oXUfwnQ/edit?ts=602335d4#heading=h.uqwr0iq8yt2d)
 
 ## Quick note of git command
-```
+```Bash
 #Edit personal info
 	git commit add git config --global user.email "you@example.com"
 	git config --global user.name "Your name"
