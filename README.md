@@ -2,10 +2,11 @@
 >Hi, this is the Welcome page of the first project. Wish u have a good day.
 ## Useful Links
 - [Project One Proposal](https://docs.google.com/document/d/1D37vekXQF5yZ1XIk86QCM60h-NepSj-_KOx9oXUfwnQ/edit?ts=602335d4#heading=h.uqwr0iq8yt2d)
+- [GitHub Desktop 简明教程](./quick-tutorial.md)
 
 
 
-## Easiest way to access/edit code 🥳
+## Easiest way to access/edit code (推荐)🥳
 
 1. Download [Github Desktop](https://desktop.github.com/)
 
@@ -14,7 +15,9 @@
 
 
 
-## Quick note of git command 😴
+
+
+## Quick note of git command 😴(不推荐)
 
 ```Bash
 #Edit personal info
@@ -31,7 +34,8 @@
 	git checkout main	
 	git checkout Red-Team
 	git checkout Blue-Team
-	
+
+#Push
 	git push --set-upstream origin main
 	git push --set-upstream origin Red-Team
 	git push --set-upstream origin Blue-Team
