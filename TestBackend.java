@@ -135,7 +135,7 @@ public class TestBackend {
 	
 	// TODO: Back End Developer, add at least 2 more tests
 	//
-        //This test is used to test wether getGenres return a empty list without setting genre.
+        //This test is used to test whether getGenres return a empty list without setting genre.
         public boolean testGetGenresInitial() {
                 try {
                         // instantiate once BackendInterface is implemented
