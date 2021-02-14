@@ -27,6 +27,16 @@ public class TestBackend {
 		} else {
 			System.out.println("Test get three movies sorted by rating: FAILED");
 		}
+		if (this.testGetGenresInitial()) {
+                        System.out.println("Test get initial genres set: PASSED");
+                } else {
+                        System.out.println("Test get initial genres set: FAILED");
+                }
+                if (this.testGetAvgRatingsInitial()) {
+                        System.out.println("Test get initial average ratings set: PASSED");
+                } else {
+                        System.out.println("Test get initial average ratings set: FAILED");
+                }
 	}
 	
 	/**
@@ -124,5 +134,42 @@ public class TestBackend {
 	}
 	
 	// TODO: Back End Developer, add at least 2 more tests
+	//
+        //This test is used to test wether getGenres return a empty list without setting genre.
+        public boolean testGetGenresInitial() {
+                try {
+                        // instantiate once BackendInterface is implemented
+                        BackendInterface backendToTest = null;
+                        if (backendToTest.getGenres().size() == 0) {
+                                // test passed
+                                return true;
+                        } else {
+                                // test failed
+                                return false;
+                        }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        // test failed
+                        return false;
+                }
+        }
+        //This test is used to test whether getAvgRatings return a empty list without setting rating.
+        public boolean testGetAvgRatingsInitial() {
+                try {
+                        // instantiate once BackendInterface is implemented
+                        BackendInterface backendToTest = null;
+                        if (backendToTest.getAvgRatings().size() == 0) {
+                                // test passed
+                                return true;
+                        } else {
+                                // test failed
+                                return false;
+                        }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        // test failed
+                        return false;
+                }
+        }
 
 }
