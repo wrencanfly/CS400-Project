@@ -1,14 +1,6 @@
 # CS400-Project-One
 >Hi, this is the Welcome page of the first project. Wish u have a good day.
-```mermaid
-graph LR
-A[CS400 project 1] --> B(main)
-B --> F(Quick Tutorial)
-A --> C(RedTeam)
-A --> D(BlueTeam)
-```
-
-
+![overview](./images/overview.jpg)
 
 ## Useful Links
 - [Project One Proposal](https://docs.google.com/document/d/1D37vekXQF5yZ1XIk86QCM60h-NepSj-_KOx9oXUfwnQ/edit?ts=602335d4#heading=h.uqwr0iq8yt2d)
