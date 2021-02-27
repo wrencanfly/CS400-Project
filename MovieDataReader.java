@@ -1,10 +1,27 @@
+// --== CS400 File Header Information ==--
+// Name: Yingwei Song
+// Email: ysong279@wisc.edu
+// Team: AF red
+// Role: Data Wrangler
+// TA: Mu
+// Lecturer: Florian
+// Notes to Grader: none
 import java.io.*;
 import java.util.*;
 import java.util.zip.DataFormatException;
 
 public class MovieDataReader implements MovieDataReaderInterface {
+    /**
+     * Main method to regulate and list the information from .csv
+     * @param inputFileReader the file's address
+     * @return regulated and listed information from .csv
+     * @throws FileNotFoundException if cannot find file
+     * @throws IOException if cannot find file
+     * @throws DataFormatException if file's data format is wrong
+     */
     @Override
     public List<MovieInterface> readDataSet(Reader inputFileReader) throws FileNotFoundException, IOException, DataFormatException {
+
         BufferedReader reader = new BufferedReader(inputFileReader);
         List<String> header = splitLine(reader.readLine());
         List<MovieInterface> list = new ArrayList<>();
@@ -34,8 +51,12 @@ public class MovieDataReader implements MovieDataReaderInterface {
         return list;
     }
 
+    /**
+     * Use regex to make sure comma between ""'s will not split
+     * @param line long string with information
+     * @return line separated
+     */
     private List<String> splitLine(String line) {
-        //using regex, to make sure comma between ""'s will not split
         return new ArrayList(Arrays.asList(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
     }
 }

@@ -1,3 +1,11 @@
+// --== CS400 File Header Information ==--
+// Name: Yingwei Song
+// Email: ysong279@wisc.edu
+// Team: AF red
+// Role: Data Wrangler
+// TA: Mu
+// Lecturer: Florian
+// Notes to Grader: none
 import java.util.List;
 
 public class MovieData implements MovieInterface {
@@ -5,6 +13,7 @@ public class MovieData implements MovieInterface {
     public List<String> genres;
     public Float avgVote;
     private Integer year;
+
 
     //access methods
     @Override
@@ -62,13 +71,20 @@ public class MovieData implements MovieInterface {
         this.year = year;
     }
 
-    //sort in descending order
+    /**
+     * Override the compareTo to sort in descending order
+     * @param otherMovie otherMovie compared with
+     * @return >1 if larger than otherMovie; else smaller
+     */
     @Override
     public int compareTo(MovieInterface otherMovie) {
         return otherMovie.getAvgVote().compareTo(avgVote);
     }
 
-    //override toString method
+    /**
+     * Override .toString method and return string info.
+     * @return string information
+     */
     @Override
     public String toString() {
         return "MovieData{" +

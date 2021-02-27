@@ -1,3 +1,11 @@
+// --== CS400 File Header Information ==--
+// Name: Yingwei Song
+// Email: ysong279@wisc.edu
+// Team: AF red
+// Role: Data Wrangler
+// TA: Mu
+// Lecturer: Florian
+// Notes to Grader: none
 import java.io.*;
 import java.util.Collections;
 import java.util.List;
@@ -39,10 +47,10 @@ public class TestMovieAndMovieDataReader {
         } else {
             System.out.println("Test movie order: FAILED");
         }
-        if (this.testThrowFileNotFoundException()) {
-            System.out.println("Test Throw FileNotFoundException: PASSED");
+        if (this.testThrowIOException()) {
+            System.out.println("Test Throw IOException: PASSED");
         } else {
-            System.out.println("Test Throw FileNotFoundException: FAILED");
+            System.out.println("Test Throw IOException: FAILED");
         }
         if (this.testThrowDataFormatException()) {
             System.out.println("Test Throw DataFormatException: PASSED");
@@ -158,16 +166,16 @@ public class TestMovieAndMovieDataReader {
 
     // TODO: Data Wrangler, add at least 2 more tests
     /**
-     * This test checks if file not found, whether it can throw FileNotFoundException
+     * This test checks if file not found, whether it can throw IOException
      *
      * @return true if the test passed, false if it failed
      */
-    public boolean testThrowFileNotFoundException() {
+    public boolean testThrowIOException() {
         List<MovieInterface> movieList;
         try {
             FileReader fr = new FileReader(new File("/tmp/file1.csv"));
             movieList = readerToTest.readDataSet(fr);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             return true;
         } catch (Exception e) {
             return false;
