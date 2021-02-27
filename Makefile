@@ -1,31 +1,19 @@
-default: testMovieDataReader testBackend testFrontend
+run:
+	@echo "FIXME: *make run* or just *make* should be the default target which compiles (when needed) and executes your code."
 
-testMovieDataReader: TestMovieAndMovieDataReader.class
-	java TestMovieAndMovieDataReader
+compile:
+	@echo "FIXME: *make compile* should compile the code for your project"
 
-testFrontend: TestFrontend.class
-	java TestFrontend
+test: testData testBackend testFrontend
 
-testBackend: BackendInterface.class TestBackend.class
-	java TestBackend
+testFrontend:
+	@echo "FIXME: *make testFrontend* should compile (when needed) and run all your team's tests for this application"
 
-BackendInterface.class: BackendInterface.java
-	javac BackendInterface.java
+testBackend:
+	@echo "FIXME: *make testFrontend* should compile (when needed) and run all your team's tests for this application"
 
-TestBackend.class: TestBackend.java
-	javac TestBackend.java
-
-MovieDataReaderInterface.class: MovieDataReaderInterface.java
-	javac MovieDataReaderInterface.java
-
-TestFrontend.class: TestFrontend.java
-	javac TestFrontend.java
-
-MovieInterface.class: MovieInterface.java
-	javac MovieInterface.java
-
-TestMovieAndMovieDataReader.class: TestMovieAndMovieDataReader.java
-	javac TestMovieAndMovieDataReader.java
+testData:
+	@echo "FIXME: *make testFrontend* should compile (when needed) and run all your team's tests for this application"
 
 clean:
-	rm *.class
+	$(RM) *.class
