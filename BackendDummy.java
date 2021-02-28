@@ -40,12 +40,13 @@ public class BackendDummy implements BackendInterface {
     }
 
     /**
-     * Method to add a genre that the user selected. It will output but not store the
+     * Method to add a rating that the user selected. It will output but not store the
      * ratings passed to it. 
      */
     @Override
     public void addAvgRating(String rating) {
-        // TODO: Fixme! Add dummy implementation similar to addGenre method.
+      System.out.println("Dummy backend; will ignore rating to add (" + rating + ")");
+        //  Add dummy implementation similar to addGenre method.
     }
 
     /**
@@ -54,7 +55,8 @@ public class BackendDummy implements BackendInterface {
      */
     @Override
     public void removeGenre(String genre) {
-        // TODO: Fixme! Add dummy implementation similar to addGenre method.
+      System.out.println("Dummy backend; will ignore genre to remove (" + genre + ")");
+        // Add dummy implementation similar to addGenre method.
     }
 
     /**
@@ -63,7 +65,8 @@ public class BackendDummy implements BackendInterface {
      */
     @Override
     public void removeAvgRating(String rating) {
-        // TODO: Fixme! Add dummy implementation similar to addGenre method.
+      System.out.println("Dummy backend; will ignore rating to remove (" + rating + ")");
+        //  Add dummy implementation similar to addGenre method.
     }
 
     /**
@@ -81,8 +84,8 @@ public class BackendDummy implements BackendInterface {
      */
     @Override
     public List<String> getAvgRatings() {
-        // TODO: Fixme! Add dummy implementation similar to getGenres.
-        return null;
+        // Add dummy implementation similar to getGenres.
+        return Arrays.asList(new String [] {"3", "5", "7"});
     }
 
     /**
@@ -109,7 +112,6 @@ public class BackendDummy implements BackendInterface {
     public List<MovieInterface> getThreeMovies(int startingIndex) {
         ArrayList<MovieInterface> movies = new ArrayList<MovieInterface>();
         movies.add(new MovieInterface() {
-
             @Override
             public String getTitle() {
                 return "Plan 9 from Outer Spacce";
@@ -153,8 +155,96 @@ public class BackendDummy implements BackendInterface {
             }
             
         });
-        // TODO: Fixme! Add two more example movies to the list before returning it (could be
-        //       ficticious ones).
+        
+        movies.add(new MovieInterface() {
+          @Override
+          public String getTitle() {
+              return "Yueguangbaohe";
+          }
+
+          @Override
+          public Integer getYear() {
+              return 2020;
+          }
+
+          @Override
+          public List<String> getGenres() {
+              return Arrays.asList(new String[] { "Romance", "Comedy" });
+          }
+
+          @Override
+          public String getDirector() {
+              return "Zhou";
+          }
+
+          @Override
+          public String getDescription() {
+              return "............";
+          }
+
+          @Override
+          public Float getAvgVote() {
+              return 9.3f;
+          }
+
+          @Override
+          public int compareTo(MovieInterface otherMovie) {
+              if (this.getTitle().equals(otherMovie.getTitle())) {
+                  return 0;
+                  // sort by rating
+              } else if (this.getAvgVote() < otherMovie.getAvgVote()) {
+                  return +1;
+              } else {
+                  return -1;
+              }
+          }
+          
+      });
+        
+        movies.add(new MovieInterface() {
+          @Override
+          public String getTitle() {
+              return "Dahuaxiyou";
+          }
+
+          @Override
+          public Integer getYear() {
+              return 2020;
+          }
+
+          @Override
+          public List<String> getGenres() {
+              return Arrays.asList(new String[] { "Romance", "Action" });
+          }
+
+          @Override
+          public String getDirector() {
+              return "Kris";
+          }
+
+          @Override
+          public String getDescription() {
+              return ",,,,,,,,,,";
+          }
+
+          @Override
+          public Float getAvgVote() {
+              return 6.3f;
+          }
+
+          @Override
+          public int compareTo(MovieInterface otherMovie) {
+              if (this.getTitle().equals(otherMovie.getTitle())) {
+                  return 0;
+                  // sort by rating
+              } else if (this.getAvgVote() < otherMovie.getAvgVote()) {
+                  return +1;
+              } else {
+                  return -1;
+              }
+          }
+          
+      });
         return movies;
     }
 }
