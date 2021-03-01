@@ -230,7 +230,11 @@ public class Backend implements BackendInterface {
       int avgRating = Integer.parseInt(rating);
       if(avgRating >= 0 && avgRating <= 10){  // avoid invalid input
         ratingInputList.add(rating);
+        try {
         chosenMovieList.addAll(deepcopy(ratingTable.get(avgRating)));
+        }catch(NoSuchElementException e) {
+           // 0 and 10 are not among the key
+        }
       }  
     }
         
@@ -361,7 +365,6 @@ public class Backend implements BackendInterface {
     }
     return output;
   }
-  
   /**
    * This method clears chosenMovieList, genreInputList, and ratingInputList.
    * It can be used by the front end developer to switch between different mode.
@@ -372,5 +375,16 @@ public class Backend implements BackendInterface {
     chosenMovieList.removeAll(chosenMovieList);
     genreInputList.removeAll(genreInputList);
     ratingInputList.removeAll(ratingInputList);
+  }
+  public static void main(String[] args) throws IOException, DataFormatException {
+    Reader file = new FileReader("/Users/iveniven/eclipse-workspace/P1/src/movies.csv");
+    Backend back = new Backend(file);
+    for(int i = 0; i <= 10; i++) {
+      back.addAvgRating(String.valueOf(i));
+    }
+    for(int i = 2; i <= 9; i++) {
+      back.removeAvgRating(String.valueOf(i));
+    }
+    System.out.println(back.getThreeMovies(0));
   }
 }
