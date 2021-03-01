@@ -206,10 +206,14 @@ public class Backend implements BackendInterface {
       genre = genre.strip();
       if (allGenre.contains(genre)) { // only adding valid genre
         genreInputList.add(genre); // add the genre into the genreInputList
-        if (chosenMovieList.size() == 0) {
+        if (chosenMovieList.size() == 0 && genreInputList.size() <= 3) {
           chosenMovieList = deepcopy(genreTable.get(genre));
-        } else {
-          List<MovieInterface> temp = genreTable.get(genre);
+        } 
+        else if(genreInputList.size() > 3) {
+          chosenMovieList.removeAll(chosenMovieList);
+        }
+        else {
+          List<MovieInterface> temp = deepcopy(genreTable.get(genre)); // deepcopy
           for (int i = chosenMovieList.size() - 1; i >= 0; i--) {
             if (!temp.contains(chosenMovieList.get(i))) {
               chosenMovieList.remove(i);
@@ -258,9 +262,9 @@ public class Backend implements BackendInterface {
       else {
         chosenMovieList = deepcopy(genreTable.get(genreInputList.get(0)));
         for(int i = 1; i < genreInputList.size(); i++) {
-          for(int j = 0; i < chosenMovieList.size(); j++) {
-            if(!genreTable.get(genreInputList.get(i)).contains(chosenMovieList.get(i))) {
-              chosenMovieList.remove(i);
+          for(int j = chosenMovieList.size() - 1; j >= 0; j--) {
+            if(!genreTable.get(genreInputList.get(i)).contains(chosenMovieList.get(j))) {
+              chosenMovieList.remove(j);
             }
           }         
         }
@@ -375,16 +379,5 @@ public class Backend implements BackendInterface {
     chosenMovieList.removeAll(chosenMovieList);
     genreInputList.removeAll(genreInputList);
     ratingInputList.removeAll(ratingInputList);
-  }
-  public static void main(String[] args) throws IOException, DataFormatException {
-    Reader file = new FileReader("/Users/iveniven/eclipse-workspace/P1/src/movies.csv");
-    Backend back = new Backend(file);
-    for(int i = 0; i <= 10; i++) {
-      back.addAvgRating(String.valueOf(i));
-    }
-    for(int i = 2; i <= 9; i++) {
-      back.removeAvgRating(String.valueOf(i));
-    }
-    System.out.println(back.getThreeMovies(0));
   }
 }
