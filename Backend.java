@@ -11,23 +11,12 @@ import java.util.*;
 //Lecturer: Gary
 //Notes to Grader: <optional extra notes>
 
-/**
- * The class implemented by the Back End Developer will instantiate the 
- * Data Wrangler’s implementation of the MovieDataReaderInterface interface in its constructor. 
- * It will then use this instantiation to read in the data file 
- * passed as the command line argument to the application. 
- * The command line arguments are passed to the back end class 
- * as an argument to its constructor. 
- * 
- *
- */
 public class Backend implements BackendInterface {
   // The hash table that takes genre as key
   private HashTableMap <String, List<MovieInterface>> genreTable;
   // The hash table that takes rating as key
   private HashTableMap<Integer, List<MovieInterface>> ratingTable;
-  // The list that stores selected MovieInterface after user's selection by calling 
-  // addGenre, removeGenre or addAvgRating, removeAvgRating
+  // The list that stores selected MovieInterface by user's selection 
   private List<MovieInterface> chosenMovieList = new ArrayList<MovieInterface>();
   // The list contains the userInput parsed in from addGenre and addAvgRating
   private List<String> genreInputList = new ArrayList<String>();
@@ -35,15 +24,20 @@ public class Backend implements BackendInterface {
   // The ArrayList that contains all the distinct genre
   private List<String> allGenre = new ArrayList<String>();
   /**
+   * This is the constructor that will be used by the front end.
    * The constructor that reads in the List of data from the MovieDataReader
    * and stores the data into the specific hash table.  
-   * @param args the parameter that reads in the command line argument
+   * Both of the hash table will use List<MovieInterface> as the value.
+   * For example, in the genreTable, one of the key might be "Action", 
+   * and the value of it will be a List<MovieInterface> that contains 
+   * all the movies with genre "Action"
+   * @param fileReader the parameter that reads a Reader object containing the csv path
    * @throws IOException if cannot find file
    * @throws DataFormatException if file's data format is wrong
    */
-  public Backend(String[] args) throws IOException, DataFormatException {
+  public Backend(String[] argc) throws IOException, DataFormatException {
     MovieDataReader movie = new MovieDataReader(); 
-    List<MovieInterface> movieList = movie.readDataSet(new FileReader(args[0])); //fixeme 
+    List<MovieInterface> movieList = movie.readDataSet(new FileReader(argc[0])); 
     allGenre = genreCount(movieList); // list contains all the distinct genre
     int numGenre = allGenre.size();  // the num of distinct genre
     genreTable = new HashTableMap <String, List<MovieInterface>>(numGenre);
@@ -71,25 +65,19 @@ public class Backend implements BackendInterface {
       }
     }
   }
+  
   /**
-   * Copy from MovieDataReader 
-   * 
-   * Use regex to make sure comma between ""'s will not split
-   * @param line long string with information
-   * @return line separated
-   */
-  private List<String> splitLine(String line) {
-      return new ArrayList(Arrays.asList(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
-  }
-  /**
-   * The constructor that reads in a StringReader as the input and stores the data 
+   * This constructor is implemented for the test.
+   * The constructor that reads in a StringReader/FileReder as the input and stores the data 
    * into the hash table.
-   * And the 
+   * And the code to transform the String into the list<MovieInterface>
+   * is part of the code in MovieDataReader class. Since this constructor cannot 
+   * call the MovieDataReader
    * @param stringReader contains the data formatted as String
    * @throws IOException 
    * @throws DataFormatException 
    */
-  public Backend(StringReader stringReader) throws IOException, DataFormatException  {
+  public Backend(Reader stringReader) throws IOException, DataFormatException  {
     String result = "";
     int k;
     while((k = stringReader.read())!= -1) {
@@ -99,6 +87,10 @@ public class Backend implements BackendInterface {
     String [] rawList = result.split("\n");
     List<String> header = splitLine(rawList[0]);
     List<MovieInterface> movieList = new ArrayList<>();
+    /*
+     * This for loop is written by the data wrangler
+     * It is part of the code from MovieDataReader
+     */
     for (int i = 1; i < rawList.length; i++) {
       String line = rawList[i];
       List<String> row = splitLine(line);
@@ -116,6 +108,7 @@ public class Backend implements BackendInterface {
       md.setAvgVote(Float.parseFloat(row.get(12)));
       movieList.add(md);   //combine the line into list
     }
+    
     allGenre = genreCount(movieList); // list contains all the distinct genre
     int numGenre = allGenre.size();  // the num of distinct genre
     genreTable = new HashTableMap <String, List<MovieInterface>>(numGenre);
@@ -141,8 +134,17 @@ public class Backend implements BackendInterface {
           break;
         }
       }
-    }
-      
+    }      
+  }
+  /**
+   * Copy from MovieDataReader to format the String into a list
+   * This method is written by the data wrangler. 
+   * Use regex to make sure comma between ""'s will not split
+   * @param line long string with information
+   * @return line separated
+   */
+  private List<String> splitLine(String line) {
+      return new ArrayList(Arrays.asList(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
   }
   /**
    * The getRatingList loops through the movieList and returns a list of MovieInterface whose
@@ -178,7 +180,6 @@ public class Backend implements BackendInterface {
     }
     return genreList;
   }
-  
   /**
    * The genreCount method uses a hash set to store all the genres into the set
    * and return a ArrayList created from the hash set 
@@ -305,8 +306,7 @@ public class Backend implements BackendInterface {
   @Override
   public List<String> getGenres() {
     return genreInputList;
-  }
-  
+  } 
   /**
    * 
    * @return return the ratingInputList that contains the rating the user select
@@ -324,7 +324,6 @@ public class Backend implements BackendInterface {
   public int getNumberOfMovies() {
     return chosenMovieList.size();
   }
-  
   /**
    * 
    * @return the list contains all the distinct genre
@@ -333,7 +332,6 @@ public class Backend implements BackendInterface {
   public List<String> getAllGenres() {
     return allGenre;
   }
-  
   /**
    * The getThreeMovies method will return a list of movie starting from 
    * the startingIndex and ends at startingIndex + 3 if startingIndex + 3 is not 
@@ -362,5 +360,17 @@ public class Backend implements BackendInterface {
       output = chosenMovieList.subList(startingIndex, chosenMovieList.size());
     }
     return output;
+  }
+  
+  /**
+   * This method clears chosenMovieList, genreInputList, and ratingInputList.
+   * It can be used by the front end developer to switch between different mode.
+   * It will clear all the user selection of genres and ratings and the the list 
+   * containing the selected movies.
+   */
+  public void clear() {
+    chosenMovieList.removeAll(chosenMovieList);
+    genreInputList.removeAll(genreInputList);
+    ratingInputList.removeAll(ratingInputList);
   }
 }
