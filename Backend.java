@@ -35,9 +35,9 @@ public class Backend implements BackendInterface {
    * @throws IOException if cannot find file
    * @throws DataFormatException if file's data format is wrong
    */
-  public Backend(String[] argc) throws IOException, DataFormatException {
+  public Backend(String[] args) throws IOException, DataFormatException {
     MovieDataReader movie = new MovieDataReader(); 
-    List<MovieInterface> movieList = movie.readDataSet(new FileReader(argc[0])); 
+    List<MovieInterface> movieList = movie.readDataSet(new FileReader(args[0])); 
     allGenre = genreCount(movieList); // list contains all the distinct genre
     int numGenre = allGenre.size();  // the num of distinct genre
     genreTable = new HashTableMap <String, List<MovieInterface>>(numGenre);
