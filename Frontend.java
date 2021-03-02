@@ -256,7 +256,7 @@ public class Frontend {
 	public static void main(String[] args) {
 		Backend back;//new Backend
 		try {
-			FileReader file= new FileReader("src/movies.csv");//the file Reader
+			FileReader file= new FileReader("./movies.csv");//the file Reader
 			back = new Backend(file);
 		    run(back);// run the whole System
 		
