@@ -1,3 +1,11 @@
+// --== CS400 File Header Information ==--
+// Name: Yuanqing Cai
+// Email: cai92@wisc.edu
+// Team: AF red
+// Role: Frontend Developer
+// TA: Mu
+// Lecturer: Florian
+// Notes to Grader: none
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
