@@ -1,44 +1,11 @@
-# CS400-Project-One
->Hi, this is the Welcome page of the first project. Wish u have a good day.
+# CS400-RedTeam
+## Week3 - CS400 Project One: Final App
 
 
-## Useful Links
-- [Project One Proposal](https://docs.google.com/document/d/1D37vekXQF5yZ1XIk86QCM60h-NepSj-_KOx9oXUfwnQ/edit?ts=602335d4#heading=h.uqwr0iq8yt2d)
-- [GitHub Desktop 简明教程](./quick-tutorial.md)
+1. Finish README file
+2. If you are a Developer (front end or back end), find the interfaces and initial dummy classes that your implementation depends on. Extend these dummy classes so that they provide enough functionality that you can work with them while developing your implementation. Discuss any questions you have about those dummy objects and their expected behavior with your teammates during or shortly after your team's kickoff meeting.
+3. The Integration Manager will record a demo video as sketched in the proposal. If any last integration bugs occur, the team will help the Integration Manager to fix them.
+   - Videos should be between 2-3 minutes and will be shared on FlipGrid under the topic "Project One Demo".
+   - [This website (Links to an external site.)](https://help.flipgrid.com/hc/en-us/articles/360045940833-Screen-Recording-How-to-record-your-screen-using-the-Flipgrid-camera) describes how to use FlipGrid's own tool for screen recordings.
+4. [Complete Group Evaluations (Links to an external site.)](https://docs.google.com/forms/d/e/1FAIpQLSdX02L4_FhW27eWdSF1C_Ao0lfdGCfLcoRORpq-j4EdWoJH8w/viewform?usp=sf_link): fill in the linked form individually to evaluate the work in your group.
 
-
-
-## Easiest way to access/edit code (推荐)🥳
-
-1. Download [Github Desktop](https://desktop.github.com/)
-
-2. Select correct branch and open with Github Desktop![step0](./images/step0.png)
-3. Start coding ![step4](./images/step4.png)
-
-
-
-
-
-## Quick note of git command 😴(不推荐)
-
-```Bash
-#Edit personal info
-	git commit add git config --global user.email "you@example.com"
-	git config --global user.name "Your name"
-
-#Basic commands
-	git add <filename>
-	git commit -m "<commit information>"
-	git status
-	git log
-
-#Change branch
-	git checkout main	
-	git checkout Red-Team
-	git checkout Blue-Team
-
-#Push
-	git push --set-upstream origin main
-	git push --set-upstream origin Red-Team
-	git push --set-upstream origin Blue-Team
-```
