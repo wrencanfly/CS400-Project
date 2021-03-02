@@ -250,7 +250,7 @@ public class Backend implements BackendInterface {
       if(genreInputList.size() == 0) {
         return temp;
       }
-   
+      
       List<MovieInterface> genreList = deepcopy(genreTable.get(genreInputList.get(0)));
       for (int i = 1; i < genreInputList.size(); i++) {
         List<MovieInterface> tempGenreList = deepcopy(genreTable.get(genreInputList.get(i)));
@@ -259,6 +259,10 @@ public class Backend implements BackendInterface {
             genreList.remove(j);
           }
         }
+      }
+      // choose the genre with all rating
+      if(ratingInputList.size() == 0) {
+        return genreList;
       }
       for(int i = temp.size() - 1; i >= 0; i--) {
         if(!genreList.contains(temp.get(i))) {
