@@ -36,15 +36,7 @@ public class MovieDataReader implements MovieDataReaderInterface {
                 throw new DataFormatException("Wrong Data format, please check.");
             }
             MovieData md = new MovieData();
-
-            //set params.
-            md.setTitle(row.get(0));
-            md.setYear(Integer.parseInt(row.get(2)));
-            md.setGenres(Arrays.asList(row.get(3).split(",")));
-            md.setDirector(row.get(7));
-            md.setDescription(row.get(11));
-            md.setAvgVote(Float.parseFloat(row.get(12)));
-
+            setParams(md,row);  //setParams
             list.add(md);   //combine the line into list
             line = reader.readLine();   //read next line
         }
@@ -56,7 +48,22 @@ public class MovieDataReader implements MovieDataReaderInterface {
      * @param line long string with information
      * @return line separated
      */
-    private List<String> splitLine(String line) {
+    public static List<String> splitLine(String line) {
         return new ArrayList(Arrays.asList(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
+    }
+
+    /**
+     * Set parameters
+     * @param md MovieData want to set
+     * @param row the row in reading
+     */
+    public static void setParams(MovieData md, List<String> row){
+        //set params.
+        md.setTitle(row.get(0));
+        md.setYear(Integer.parseInt(row.get(2)));
+        md.setGenres(Arrays.asList(row.get(3).split(",")));
+        md.setDirector(row.get(7));
+        md.setDescription(row.get(11));
+        md.setAvgVote(Float.parseFloat(row.get(12)));
     }
 }
