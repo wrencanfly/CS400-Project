@@ -231,7 +231,7 @@ public class Backend implements BackendInterface {
   private List<MovieInterface> generateMovieList() {
       List<MovieInterface> temp = new ArrayList<MovieInterface>();
       // two situation to return empty list
-      if (ratingInputList.size() == 0 && genreInputList.size() == 0) {
+      if (ratingInputList.size() == 0 || genreInputList.size() == 0) {
         return temp; 
       }
       else if(genreInputList.size() > 3) {
@@ -246,10 +246,7 @@ public class Backend implements BackendInterface {
           // 0 and 10 are not in the list
         }
       }
-      // choose the genre with all rating
-      if(genreInputList.size() == 0) {
-        return temp;
-      }
+
       List<MovieInterface> genreList = deepcopy(genreTable.get(genreInputList.get(0)));
       for (int i = 1; i < genreInputList.size(); i++) {
         List<MovieInterface> tempGenreList = deepcopy(genreTable.get(genreInputList.get(i)));
@@ -258,9 +255,6 @@ public class Backend implements BackendInterface {
             genreList.remove(j);
           }
         }
-      }
-      if(ratingInputList.size() == 0) {
-        return genreList;
       }
       for(int i = temp.size() - 1; i >= 0; i--) {
         if(!genreList.contains(temp.get(i))) {

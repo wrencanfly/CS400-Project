@@ -29,11 +29,6 @@ public class TestBackend {
 		} else {
 			System.out.println("Test get three movies sorted by rating: FAILED");
 		}
-		if (this.testGetNumberOfMovies()) {
-          System.out.println("Test get number of movies: PASSED");
-        } else {
-          System.out.println("Test get number of movies: FAILED");
-        }
 		if (this.testGetAvgRatingsInitial()) {
           System.out.println("Test get avg ratings initials: PASSED");
         } else {
@@ -145,70 +140,7 @@ public class TestBackend {
 			return false;
 		}
 	}
-	/**
-	 * This test instantiates the back end with three movies and tests whether 
-	 * the int returned by calling the getNumberOfMovies() method will correctly 
-	 * return the value. The test pass when getNumberOfMovies() return 3 and fail
-	 * in all other cases including when an exception is thrown.   
-	 * @return true if all the tests passed and false otherwise
-	 */
-	public boolean testGetNumberOfMovies() {
-	    Backend backendToTest = null;
-          try {
-            // instantiate once BackendInterface is implemented
-             backendToTest =  new Backend(new StringReader(
-                  "title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
-                  + "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-                  + "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
-                  + "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-            ));            
-          } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("fail to read in data");
-          }          
-          // Test 1 add genre Action
-          backendToTest.addGenre("Action");
-          if(backendToTest.getNumberOfMovies() != 1) {
-            System.out.println("fail to successfully add genre");
-            return false;
-          }
-        
-          // Test 2 remove genre Action
-          backendToTest.removeGenre("Action");
-          if(backendToTest.getNumberOfMovies() != 0) {
-            System.out.println(backendToTest.getNumberOfMovies());
-            System.out.println(backendToTest.getGenres());
-            System.out.println("fail to successfully remove genre");
-            return false;
-          }
-       // Test 3 add genre Horror
-          backendToTest.addGenre("Horror");
-          if(backendToTest.getNumberOfMovies() != 1) {
-            System.out.println(backendToTest.getNumberOfMovies());
-            System.out.println(backendToTest.getGenres());
-            System.out.println("fail to successfully add genre");
-            return false;
-          }
-          // Test 4 add genre Musical
-          backendToTest.addGenre("Musical");
-          if(backendToTest.getNumberOfMovies() != 0) {
-            System.out.println(backendToTest.getNumberOfMovies());
-            System.out.println(backendToTest.getGenres());
-            System.out.println("fail to successfully add genre");
-            return false;
-          }
-          // Test 4 remove genre Musical
-          backendToTest.removeGenre("Horror");
-          backendToTest.removeGenre("Musical");
-          if(backendToTest.getNumberOfMovies() != 0) {
-            System.out.println(backendToTest.getNumberOfMovies());
-            System.out.println(backendToTest.getGenres());
-            System.out.println("fail to successfully add genre");
-            return false;
-          }
-        return true;
-          
-      }
+	
     /**
      * This test instantiates the back end with three movies and tests whether the
      * initial list returned by getAvgRatings is empty. 
@@ -335,7 +267,7 @@ public class TestBackend {
       }
       // Test 3 remove Rating 5 
       backendToTest.removeAvgRating("3");
-      if(backendToTest.getAvgRatings().size()!= 1 || backendToTest.getNumberOfMovies() != 1) {
+      if(backendToTest.getAvgRatings().size()!= 1 || backendToTest.getNumberOfMovies() != 0) {
         System.out.println(backendToTest.getAvgRatings());
         System.out.println(backendToTest.getNumberOfMovies());
         System.out.println("fail to successfully remove rating 3");
