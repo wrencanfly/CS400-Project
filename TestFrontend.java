@@ -2,6 +2,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.StringReader;
 
 /**
  * This class contains a set of tests for the front end of the Movie Mapper project.
@@ -35,6 +36,18 @@ public class TestFrontend {
 		} else {
 			System.out.println("FAILED");
 		}
+		System.out.print("Test 'r' load rating selection screen (WARNING: if pressing 'x' twice from the rating selection screen does not exit app, test won't exit and run indeficitely!):");
+		if (this.testFrontendRForRating()) {
+			System.out.println("PASSED");
+		} else {
+			System.out.println("FAILED");
+		}
+		System.out.print("Test frontend initially lists no genre and rate number (WARNING: if 'x' does not exit app, test won't exit and run indefinitely!): ");
+		if(this.testFrontendForGenreWithoutSelection()) {
+			System.out.println("PASSED");
+		} else {
+			System.out.println("FAILED");
+		}
 	}
 	
     /**
@@ -57,13 +70,13 @@ public class TestFrontend {
 			// set the output to the stream captor to read the output of the front end
 			System.setOut(new PrintStream(outputStreamCaptor));
 			// instantiate when front end is implemented
-			Object frontend = null; /* new Frontend();
+			Object frontend = new Frontend();
 			((Frontend)frontend).run(new Backend(new StringReader(
 					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
 					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
+					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Par茅, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
 					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			))); */
+			))); 
 			// set the output back to standard out for running the test
 			System.setOut(standardOut);
 			// same for standard in
@@ -105,13 +118,13 @@ public class TestFrontend {
 			// set the output to the stream captor to read the output of the front end
 			System.setOut(new PrintStream(outputStreamCaptor));
 			// instantiate when front end is implemented
-			Object frontend = null; /* new Frontend();
+			Object frontend = new Frontend();
 			((Frontend)frontend).run(new Backend(new StringReader(
 					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
 					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
+					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Par茅, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
 					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			))); */
+			))); 
 			// set the output back to standard out for running the test
 			System.setOut(standardOut);
 			// same for standard in
@@ -157,13 +170,13 @@ public class TestFrontend {
 			// set the output to the stream captor to read the output of the front end
 			System.setOut(new PrintStream(outputStreamCaptor));
 			// instantiate when front end is implemented
-			Object frontend = null;	/* new Frontend();
+			Object frontend = new Frontend();
 			((Frontend)frontend).run(new Backend(new StringReader(
 					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
 					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
-					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Paré, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
+					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Par茅, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
 					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
-			))); */
+			))); 
 			// set the output back to standard out for running the test
 			System.setOut(standardOut);
 			// same for standard in
@@ -191,6 +204,116 @@ public class TestFrontend {
 		}
 	}
 	
-	// TODO: Front End Developer, add at least 2 more tests
+	
+	/**
+	 * This test runs the front end and redirects its output to a string. It then
+	 * passes in 'r' as a command to go to the rating selection mode. It then exists
+	 * the app by pressing 'x' to go back to the main mode and another 'x' to exit.
+	 * The test succeeds if the rating selection screen contains all eleven integer
+	 * from the data. It fails if any of them are missing, the front end has not
+	 * been instantiated (is null), or there is an exception.
+	 * @return true if the test passed, false if it failed
+	 */
+	public boolean testFrontendRForRating() {
+		PrintStream standardOut = System.out;
+		InputStream standardIn = System.in;
+		try {
+			// set the input stream to our input (with an r to test of the program lists genres)
+			String input = "r" + System.lineSeparator() + "x" + System.lineSeparator() + "x";
+			InputStream inputStreamSimulator = new ByteArrayInputStream(input.getBytes());
+			System.setIn(inputStreamSimulator);
+			ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+			// set the output to the stream captor to read the output of the front end
+			System.setOut(new PrintStream(outputStreamCaptor));
+			// instantiate when front end is implemented
+			Object frontend = new Frontend();
+			((Frontend)frontend).run(new Backend(new StringReader(
+					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
+					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
+					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Par茅, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
+					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
+			)));
+			// set the output back to standard out for running the test
+			System.setOut(standardOut);
+			// same for standard in
+			System.setIn(standardIn);
+			// add all tests to this method
+			String appOutput = outputStreamCaptor.toString();
+			if (frontend != null && appOutput.contains("0")
+							&& appOutput.contains("1")
+							&& appOutput.contains("2")
+							&& appOutput.contains("3")
+							&& appOutput.contains("4")
+							&& appOutput.contains("5")
+							&& appOutput.contains("6")
+							&& appOutput.contains("7")
+							&& appOutput.contains("8")
+							&& appOutput.contains("9")
+							&& appOutput.contains("10")) {
+				// test passes if all 11 integer from the data are displayed on the screen
+				return true;
+			} else {
+				// test failed
+				return false;
+			}
+		} catch (Exception e) {
+			// make sure stdin and stdout are set correctly after we get exception in test
+			System.setOut(standardOut);
+			System.setIn(standardIn);
+			e.printStackTrace();
+			// test failed
+			return false;
+		}
+	}
+		
+	/**
+	 * This test runs the front end and redirects its output to a string. It then
+	 * passes in 'x' as a command to exit the app. The test succeeds if the front
+	 * end does not contain any of the Genere and Rating number by default. It fails if any of
+	 * those Genere and Rating number are present in the string or an exception occurs.
+	 * @return true if the test passed, false if it failed
+	 */
+	public boolean testFrontendForGenreWithoutSelection() {
+		PrintStream standardOut = System.out;
+		InputStream standardIn = System.in;
+		try {
+			// set the input stream to our input (with an x to test of the program exists)
+			String input = "g" + System.lineSeparator() + "x" + System.lineSeparator() + "x";
+			InputStream inputStreamSimulator = new ByteArrayInputStream(input.getBytes());
+			System.setIn(inputStreamSimulator);
+			ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+			// set the output to the stream captor to read the output of the front end
+			System.setOut(new PrintStream(outputStreamCaptor));
+			// instantiate when front end is implemented
+			Object frontend =  new Frontend();
+			((Frontend)frontend).run(new Backend(new StringReader(
+					"title,original_title,year,genre,duration,country,language,director,writer,production_company,actors,description,avg_vote\n"
+					+ "The Source of Shadows,The Source of Shadows,2020,Horror,83,USA,English,\"Ryan Bury, Jennifer Bonior\",\"Jennifer Bonior, Trevor Botkin\",Four Thieves Productions,\"Ashleigh Allard, Tom Bonington, Eliane Gagnon, Marissa Kaye Grinestaff, Jenna Heffernan, Joshua Hummel, Janice Kingsley, Chris Labasbas, Jared Laufree, Dominic Lee, Vic May, Sienna Mazzone, Lizzie Mounter, Grace Mumm, Ashley Otis\",\"A series of stories woven together by one of our most primal fears, the fear of the unknown.\",3.5\n"
+					+ "The Insurrection,The Insurrection,2020,Action,90,USA,English,Rene Perez,Rene Perez,,\"Michael Par茅, Wilma Elles, Joseph Camilleri, Rebecca Tarabocchia, Jeanine Harrington, Malorie Glavan, Danner Boyd, Michael Cendejas, Woody Clendenen, Keely Dervin, Aaron Harvey, Tony Jackson, Michael Jarrod, Angelina Karo, Bernie Kelly\",The director of the largest media company wants to expose how left-wing powers use film to control populations.,2.9\n"
+					+ "Valley Girl,Valley Girl,2020,\"Comedy, Musical, Romance\",102,USA,English,Rachel Lee Goldenberg,\"Amy Talkington, Andrew Lane\",Sneak Preview Productions,\"Jessica Rothe, Josh Whitehouse, Jessie Ennis, Ashleigh Murray, Chloe Bennet, Logan Paul, Mae Whitman, Mario Revolori, Rob Huebel, Judy Greer, Alex Lewis, Alex MacNicoll, Danny Ramirez, Andrew Kai, Allyn Rachel\",\"Set to a new wave '80s soundtrack, a pair of young lovers from different backgrounds defy their parents and friends to stay together. A musical adaptation of the 1983 film.\",5.4\n"
+			))); 
+			// set the output back to standard out for running the test
+			System.setOut(standardOut);
+			// same for standard in
+			System.setIn(standardIn);
+			String appOutput = outputStreamCaptor.toString();
+			if (frontend == null || appOutput.contains("The Source of Shadows")
+					|| appOutput.contains("The Insurrection")
+					|| appOutput.contains("Valley Girl")) {
+				// test failed
+				return false;
+			} else {
+				// test passed
+				return true;
+			}
+		} catch (Exception e) {
+			// make sure stdin and stdout are set correctly after we get exception in test
+			System.setOut(standardOut);
+			System.setIn(standardIn);
+			e.printStackTrace();
+			// test failed
+			return false;
+		}
+	}
 
 }
