@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 public class Frontend {
+//	private static final Scanner scan = new Scanner(System.in); // scanner for user input
 	public static Boolean FirstTimeChangeMode=true;//to check whether the mode change for the first time
 	/**
 	 * Run the whole system with the given Backend back, print the Welcome message and enter Base Mode.
@@ -177,10 +178,11 @@ public class Frontend {
 			String AvgRating=Integer.toString(i);
 			back.addAvgRating(AvgRating);// add all the Rating at first
 		}
+		Scanner scan=new Scanner(System.in);// construct a Scanner
 		while(!exit) {//loop for user to make action multiple times
 			System.out.println("This is the Base Mode!!!!");
 			int num=back.getNumberOfMovies();
-			Scanner scan=new Scanner(System.in);// construct a Scanner
+			
 			System.out.println("You can type the list number of the movie you want to see! The number of movies is "+num+"!");
 			System.out.println("Or you can type g to enter Genre Mode!");
 			System.out.println("Or you can type r to enter Rating Mode!");// welcome messages and tell user how to use it.
@@ -256,7 +258,7 @@ public class Frontend {
 	public static void main(String[] args) {
 		Backend back;//new Backend
 		try {
-			FileReader file= new FileReader("src/movies.csv");//the file Reader
+			FileReader file= new FileReader("./movies.csv");//the file Reader
 			back = new Backend(file);
 		    run(back);// run the whole System
 		
