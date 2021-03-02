@@ -255,10 +255,6 @@ public class Backend implements BackendInterface {
           }
         }
       }
-      // choose the genre with all rating
-      if(ratingInputList.size() == 0) {
-        return genreList;
-      }
       for(int i = temp.size() - 1; i >= 0; i--) {
         if(!genreList.contains(temp.get(i))) {
           temp.remove(i);
