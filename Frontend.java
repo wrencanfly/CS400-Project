@@ -1,8 +1,15 @@
+// --== CS400 File Header Information ==--
+// Name: Yuanqing Cai
+// Email: cai92@wisc.edu
+// Team: AF red
+// Role: Data Wrangler
+// TA: Mu
+// Lecturer: Florian
+// Notes to Grader: none
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
-
 public class Frontend {
 	public static Boolean FirstTimeChangeMode=true;
 	public static void run(Backend back) {
@@ -128,7 +135,7 @@ public class Frontend {
 	}
 	private static void BaseMode(Backend back) {
 		Boolean exit=false;
-		for(int i=1;i<=9;i++) {
+		for(int i=0;i<=10;i++) {
 			String AvgRating=Integer.toString(i);
 			back.addAvgRating(AvgRating);
 		}
@@ -141,7 +148,8 @@ public class Frontend {
 			System.out.print("The Genre selected: ");
 			System.out.println(back.getGenres());
 			System.out.print("The Rating selected: ");
-			System.out.println(back.getAvgRatings());
+			if(back.getAvgRatings().size()==0) System.out.println("[ All ]");
+			else System.out.println(back.getAvgRatings());
 			System.out.println("----------------------------");
 			System.out.println(num+" movies are selected! The Top Three Rating movies are list below!");
 			for(int i=0;i<3&&i<num;i++) {
