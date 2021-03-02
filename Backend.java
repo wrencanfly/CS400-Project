@@ -23,6 +23,42 @@ public class Backend implements BackendInterface {
   private List<String> ratingInputList = new ArrayList<String>();
   // The ArrayList that contains all the distinct genre
   private List<String> allGenre = new ArrayList<String>();
+
+  /**
+   * Method to put data into genreTable
+   * @param movieList movieList want to edit
+   * @param genreTable genreTable needed to be edited
+   * @param numGenre number of genre
+   */
+  public void putDataIntoGenreTable(List<MovieInterface> movieList,HashTableMap <String, List<MovieInterface>> genreTable, int numGenre){
+    for(int i = 0; i < movieList.size(); i++) {
+      for(int j = 0; j < movieList.get(i).getGenres().size(); j++){
+        String key = movieList.get(i).getGenres().get(j).strip().replaceAll("\"", "");
+        if(!genreTable.containsKey(key)) {
+          genreTable.put(key, getGenreList(movieList, key));
+          if(genreTable.size() == numGenre) {
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Method to put data into RatingTable
+   * @param movieList movieList movieList want to edit
+   */
+  public void putDataIntoRatingTable(List<MovieInterface> movieList){
+    for(int i = 0; i < movieList.size(); i++) {
+      int key = movieList.get(i).getAvgVote().intValue();
+      if(!ratingTable.containsKey(key)){
+        ratingTable.put(key, getRatingList(movieList, key));
+        if(ratingTable.size() == 10) {
+          break;
+        }
+      }
+    }
+  }
   /**
    * This is the constructor that will be used by the front end.
    * The constructor that reads in the List of data from the MovieDataReader
@@ -36,34 +72,37 @@ public class Backend implements BackendInterface {
    * @throws DataFormatException if file's data format is wrong
    */
   public Backend(String[] args) throws IOException, DataFormatException {
-    MovieDataReader movie = new MovieDataReader(); 
-    List<MovieInterface> movieList = movie.readDataSet(new FileReader(args[0])); 
+    MovieDataReader movie = new MovieDataReader();
+    List<MovieInterface> movieList = movie.readDataSet(new FileReader(args[0]));
     allGenre = genreCount(movieList); // list contains all the distinct genre
     int numGenre = allGenre.size();  // the num of distinct genre
-    genreTable = new HashTableMap <String, List<MovieInterface>>(numGenre);
-    ratingTable = new HashTableMap <Integer, List<MovieInterface>>();
-    // put the movie data into the genreTable
-    for(int i = 0; i < movieList.size(); i++) {
-      for(int j = 0; j < movieList.get(i).getGenres().size(); j++){
-        String key = movieList.get(i).getGenres().get(j).strip().replaceAll("\"", "");
-        if(!genreTable.containsKey(key)) {
-          genreTable.put(key, getGenreList(movieList, key));
-          if(genreTable.size() == numGenre) {
-            break;
-          }
-        }
-      }
-    }
+    genreTable = new HashTableMap<String, List<MovieInterface>>(numGenre);
+    ratingTable = new HashTableMap<Integer, List<MovieInterface>>();
+    putDataIntoGenreTable(movieList, genreTable, numGenre);
+    putDataIntoRatingTable(movieList);
+
+//    // put the movie data into the genreTable
+//    for(int i = 0; i < movieList.size(); i++) {
+//      for(int j = 0; j < movieList.get(i).getGenres().size(); j++){
+//        String key = movieList.get(i).getGenres().get(j).strip().replaceAll("\"", "");
+//        if(!genreTable.containsKey(key)) {
+//          genreTable.put(key, getGenreList(movieList, key));
+//          if(genreTable.size() == numGenre) {
+//            break;
+//          }
+//        }
+//      }
+//    }
     // put the movie data into the ratingTable
-    for(int i = 0; i < movieList.size(); i++) {
-      int key = movieList.get(i).getAvgVote().intValue();
-      if(!ratingTable.containsKey(key)){
-        ratingTable.put(key, getRatingList(movieList, key));
-        if(ratingTable.size() == 10) {
-          break;
-        }
-      }
-    }
+//    for(int i = 0; i < movieList.size(); i++) {
+//      int key = movieList.get(i).getAvgVote().intValue();
+//      if(!ratingTable.containsKey(key)){
+//        ratingTable.put(key, getRatingList(movieList, key));
+//        if(ratingTable.size() == 10) {
+//          break;
+//        }
+//      }
+//    }
   }
   
   /**
@@ -85,7 +124,7 @@ public class Backend implements BackendInterface {
     };
     // rawList split the String by line
     String [] rawList = result.split("\n");
-    List<String> header = splitLine(rawList[0]);
+    List<String> header = MovieDataReader.splitLine(rawList[0]);
     List<MovieInterface> movieList = new ArrayList<>();
     /*
      * This for loop is written by the data wrangler
@@ -93,48 +132,51 @@ public class Backend implements BackendInterface {
      */
     for (int i = 1; i < rawList.length; i++) {
       String line = rawList[i];
-      List<String> row = splitLine(line);
+      List<String> row = MovieDataReader.splitLine(line);
       //DataFormat check
       if (row.size() != header.size()) {
           throw new DataFormatException("Wrong Data format, please check.");
       }
       MovieData md = new MovieData();
-      //set params.
-      md.setTitle(row.get(0));
-      md.setYear(Integer.parseInt(row.get(2)));
-      md.setGenres(Arrays.asList(row.get(3).split(",")));
-      md.setDirector(row.get(7));
-      md.setDescription(row.get(11));
-      md.setAvgVote(Float.parseFloat(row.get(12)));
+      MovieDataReader.setParams(md,row);  //set params
+
+//      md.setTitle(row.get(0));
+//      md.setYear(Integer.parseInt(row.get(2)));
+//      md.setGenres(Arrays.asList(row.get(3).split(",")));
+//      md.setDirector(row.get(7));
+//      md.setDescription(row.get(11));
+//      md.setAvgVote(Float.parseFloat(row.get(12)));
       movieList.add(md);   //combine the line into list
     }
-    
+
     allGenre = genreCount(movieList); // list contains all the distinct genre
     int numGenre = allGenre.size();  // the num of distinct genre
     genreTable = new HashTableMap <String, List<MovieInterface>>(numGenre);
     ratingTable = new HashTableMap <Integer, List<MovieInterface>>();
-    // put the movie data into the genreTable
-    for(int i = 0; i < movieList.size(); i++) {
-      for(int j = 0; j < movieList.get(i).getGenres().size(); j++){
-        String key = movieList.get(i).getGenres().get(j).strip().replaceAll("\"", "");
-        if(!genreTable.containsKey(key)) {
-          genreTable.put(key, getGenreList(movieList, key));
-          if(genreTable.size() == numGenre) {
-            break;
-          }
-        }
-      }
-    }
-    // put the movie data into the ratingTable
-    for(int i = 0; i < movieList.size(); i++) {
-      int key = movieList.get(i).getAvgVote().intValue();
-      if(!ratingTable.containsKey(key)){
-        ratingTable.put(key, getRatingList(movieList, key));
-        if(ratingTable.size() == 10) {
-          break;
-        }
-      }
-    }      
+    putDataIntoGenreTable(movieList,genreTable,numGenre);
+    putDataIntoRatingTable(movieList);
+//    // put the movie data into the genreTable
+//    for(int i = 0; i < movieList.size(); i++) {
+//      for(int j = 0; j < movieList.get(i).getGenres().size(); j++){
+//        String key = movieList.get(i).getGenres().get(j).strip().replaceAll("\"", "");
+//        if(!genreTable.containsKey(key)) {
+//          genreTable.put(key, getGenreList(movieList, key));
+//          if(genreTable.size() == numGenre) {
+//            break;
+//          }
+//        }
+//      }
+//    }
+//    // put the movie data into the ratingTable
+//    for(int i = 0; i < movieList.size(); i++) {
+//      int key = movieList.get(i).getAvgVote().intValue();
+//      if(!ratingTable.containsKey(key)){
+//        ratingTable.put(key, getRatingList(movieList, key));
+//        if(ratingTable.size() == 10) {
+//          break;
+//        }
+//      }
+//    }
   }
   /**
    * Copy from MovieDataReader to format the String into a list
@@ -143,9 +185,10 @@ public class Backend implements BackendInterface {
    * @param line long string with information
    * @return line separated
    */
-  private List<String> splitLine(String line) {
-      return new ArrayList(Arrays.asList(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
-  }
+//  private List<String> splitLine(String line) {
+//      return new ArrayList(Arrays.asList(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
+//  }
+
   /**
    * The getRatingList loops through the movieList and returns a list of MovieInterface whose
    * rating matches our search.   
@@ -367,6 +410,7 @@ public class Backend implements BackendInterface {
     else {
       output = chosenMovieList.subList(startingIndex, chosenMovieList.size());
     }
+
     return output;
   }
   /**

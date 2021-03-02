@@ -145,9 +145,17 @@ public class Frontend {
 			System.out.println(back.getGenres());
 			System.out.print("The Rating selected: ");
 			System.out.println(back.getAvgRatings());
+			System.out.println("----------------------------");
 			System.out.println(num+" movies are selected! The Top Three Rating movies are list below!");
 			for(int i=0;i<3&&i<num;i++) {
-				System.out.println(back.getThreeMovies(0).get(i).toString());
+				String title = back.getThreeMovies(0).get(i).getTitle();
+				String director = back.getThreeMovies(0).get(i).getDirector();
+				String description = back.getThreeMovies(0).get(i).getDescription();
+				String genres = back.getThreeMovies(0).get(i).getGenres().toString();
+				Float avgVote = back.getThreeMovies(0).get(i).getAvgVote();
+
+				String info = String.format("Title: %s, Director: %s, Description: %s, Genres: %s, Average Vote: %.1f",title,director,description,genres,avgVote);
+				System.out.println(info);
 			}
 			Scanner scan=new Scanner(System.in);
 			while(true) {
@@ -184,7 +192,7 @@ public class Frontend {
 	public static void main(String[] args) {
 		Backend back;
 		try {
-			FileReader file= new FileReader("C:/Users/tw/eclipse-workspace/ProjectOneRedTeam/src/movies.csv");
+			FileReader file= new FileReader("movies.csv");
 			back = new Backend(file);
 		    run(back);
 		
