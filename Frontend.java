@@ -195,16 +195,16 @@ public class Frontend {
 				String title = back.getThreeMovies(0).get(i).getTitle();
 				String director = back.getThreeMovies(0).get(i).getDirector();
 				String description = back.getThreeMovies(0).get(i).getDescription();
+				String year = String.valueOf(back.getThreeMovies(0).get(i).getYear());
 				String genres = back.getThreeMovies(0).get(i).getGenres().toString();
 				Float avgVote = back.getThreeMovies(0).get(i).getAvgVote();
-				String info = String.format("Title: %s, Director: %s, Description: %s, Genres: %s, Average Vote: %.1f",title,director,description,genres,avgVote);
+				String info = String.format("Title: %s, Director: %s, Description: %s, Year: %s, Genres: %s, Average Vote: %.1f",title,director,description,year,genres,avgVote);
 				System.out.println(info);
 				//list the top three movies of the selected. initial 
 			}
 
 			while(true) {//loop for user to make multiple action
-				if(scan.hasNext()==false) break;
-				String typeIn=scan.next();
+				String typeIn=scan.next();	
 				if(typeIn.equals("x")) {
 					scan.close();
 					exit=true;//renew exit
@@ -236,9 +236,10 @@ public class Frontend {
 						String title = back.getThreeMovies(chooseNum-1).get(i).getTitle();
 						String director = back.getThreeMovies(chooseNum-1).get(i).getDirector();
 						String description = back.getThreeMovies(chooseNum-1).get(i).getDescription();
+						String year = String.valueOf(back.getThreeMovies(chooseNum-1).get(i).getYear());
 						String genres = back.getThreeMovies(chooseNum-1).get(i).getGenres().toString();
 						Float avgVote = back.getThreeMovies(chooseNum-1).get(i).getAvgVote();
-						String info = String.format("Title: %s, Director: %s, Description: %s, Genres: %s, Average Vote: %.1f",title,director,description,genres,avgVote);
+						String info = String.format("Title: %s, Director: %s, Description: %s, Year: %s, Genres: %s, Average Vote: %.1f",title,director,description,year,genres,avgVote);
 						System.out.println(info);
 						// print out the information of the selected three movies.
 					}
@@ -255,7 +256,7 @@ public class Frontend {
 	public static void main(String[] args) {
 		Backend back;//new Backend
 		try {
-			FileReader file= new FileReader("./movies.csv");//the file Reader
+			FileReader file= new FileReader("src/movies.csv");//the file Reader
 			back = new Backend(file);
 		    run(back);// run the whole System
 		
