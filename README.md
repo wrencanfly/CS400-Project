@@ -1,9 +1,9 @@
-# CS400-Project-One
->Hi, this is the Welcome page of the first project. Wish u have a good day.
+# CS400-Project-Red Team
+>Hi, this is the Welcome page of the Red Team. Wish u have a good day.
 
 
 ## Useful Links
-- [Project One Proposal](https://docs.google.com/document/d/1D37vekXQF5yZ1XIk86QCM60h-NepSj-_KOx9oXUfwnQ/edit?ts=602335d4#heading=h.uqwr0iq8yt2d)
+- [Project Two Proposal](https://docs.google.com/document/d/1693CcnU6PB55to5CJmxMEjU3vPT_VqvOe5ZbSkdvAZ0/)
 - [GitHub Desktop 简明教程](./quick-tutorial.md)
 
 
