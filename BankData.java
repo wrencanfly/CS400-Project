@@ -15,6 +15,7 @@ public class BankData implements BankDataInterface{
   private Integer ID, age;
   private String name, phoneNum, sex;
   private Double balance;
+  private boolean isBlack=false;
   
   @Override
   public Integer getID() {
@@ -45,6 +46,11 @@ public class BankData implements BankDataInterface{
   public Double getBalance() {
     return balance;
   }
+  
+  @Override
+  public boolean getIsBlack() {
+	  return isBlack;
+  }
 
   @Override
   public void setName(String name) {
@@ -69,11 +75,17 @@ public class BankData implements BankDataInterface{
   @Override
   public void setBalance(Double balance) {
     this.balance = balance;
+    if(balance<=-1000) isBlack=true;
   }
 
   @Override
   public void setID(Integer ID) {
     this.ID = ID;
+  }
+  
+  @Override
+  public void setIsBlack(boolean isBlack) {
+	  this.isBlack=isBlack;
   }
   @Override
   public String toString(){
