@@ -91,13 +91,15 @@ public class Backend implements BackendInterface{
 	public void Insert(String name, String sex, String phone, Integer age, Double balance) throws DataFormatException {
 	//	if(!sex.equals("male")||!sex.equals("female")) throw new DataFormatException();
 		BankData newMember= new BankData();
-		newMember.setID(tree.size()+1);
+		int id = tree.size()+1;
+		newMember.setID(id);
 		newMember.setAge(age);
 		newMember.setBalance(balance);
 		newMember.setName(name);
 		newMember.setPhoneNum(phone);
 		newMember.setSex(sex);
 		tree.insert(newMember);
+		map.put(phone,id);
 	}
 
 	@Override
@@ -123,8 +125,5 @@ public class Backend implements BackendInterface{
 		}
 		return BlackList;
 	}
-	
-	
-	
 
 }
