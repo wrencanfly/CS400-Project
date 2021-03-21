@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.zip.DataFormatException;
 
 public class BankDataReader{
+	private static int ID_count=1;
     /**
      * This method reads in the csv file and put the data into the list of BankData
      * @param inputFileReader a FileReader object that reads in the path name
@@ -49,7 +50,8 @@ public class BankDataReader{
     public static void setData(BankData individualData, List<String> row){
         individualData.setName(row.get(0));
         individualData.setSex(row.get(1));
-        individualData.setID(Integer.parseInt(row.get(2)));
+        individualData.setID(ID_count);
+        ID_count++;
         individualData.setPhoneNum(row.get(3));
         individualData.setAge(Integer.parseInt(row.get(4)));
         individualData.setBalance(Double.parseDouble(row.get(5)));

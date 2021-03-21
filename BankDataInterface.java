@@ -18,7 +18,8 @@ public interface BankDataInterface extends Comparable<BankDataInterface>{
   public String getSex();
 
   public Double getBalance(); // return the balance of the current account(can be negative)
-
+  
+  public boolean getIsBlack();
   // All the setter method
   public void setName(String name);
   public void setAge(Integer age);
@@ -26,6 +27,7 @@ public interface BankDataInterface extends Comparable<BankDataInterface>{
   public void setSex(String sex);
   public void setBalance(Double balance);
   public void setID(Integer ID);
+  public void setIsBlack(boolean isBlack);
   public int compareTo(BankDataInterface otherData);
   public String toString();
 }
