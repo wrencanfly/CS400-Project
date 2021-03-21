@@ -25,7 +25,7 @@ import java.util.zip.DataFormatException;
  */
 public class Frontend {
   
-  public static int numOfUser = 200; // initial number of user in the data set
+  public static int IDCount = 1199; // current last user's ID in the data set
   
   /**
    * Run the program by starting from the base mode.
@@ -118,7 +118,7 @@ public class Frontend {
         }
         
         // search with ID number
-        else if (typeIn.length() < 5) {
+        else if (typeIn.length() == 4) {
           try {
             BankDataInterface b1 = back.GetMember(Integer.valueOf(typeIn));
             Integer ID = b1.getID();
@@ -173,7 +173,7 @@ public class Frontend {
           if (arrayOfInfo[2].length() != 9) {
             throw new DataFormatException();
           }
-          System.out.println("Information added! This new user's ID is " + ++numOfUser);
+          System.out.println("Information added! This new user's ID is " + ++IDCount);
           System.out.println("Please type [Yes] to continue adding or [X] to go back to the Base Mode!");
         } catch (IllegalArgumentException e) {
           System.out.println("Invalid inputs: Phone number already exists!");
