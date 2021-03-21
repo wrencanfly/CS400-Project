@@ -89,7 +89,7 @@ public class Backend implements BackendInterface{
 
 	@Override
 	public void Insert(String name, String sex, String phone, Integer age, Double balance) throws DataFormatException {
-	//	if(!sex.equals("male")||!sex.equals("female")) throw new DataFormatException();
+		if(map.containsKey(phone)) throw new IllegalArgumentException();
 		BankData newMember= new BankData();
 		int id = tree.size()+1;
 		newMember.setID(id);
