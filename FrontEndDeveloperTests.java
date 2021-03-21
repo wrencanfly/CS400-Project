@@ -29,7 +29,7 @@ public class FrontEndDeveloperTests {
    * explicitly in this case). The test fails explicitly if the front end is
    * not instantiated or if an exception occurs.
    * 
-   * *UPDATE 3/21: Change the test input as the whole data set*
+   * *UPDATE 3/21: Change test data input to a correct format
    */
   @Test
   public void enterXToExit() {
@@ -45,7 +45,11 @@ public class FrontEndDeveloperTests {
         System.setOut(new PrintStream(outputStreamCaptor));
         // instantiate when front end is implemented
         Object frontend = new Frontend();
-        ((Frontend)frontend).run(new Backend(new FileReader("src/bankDataSet.csv")));
+        ((Frontend)frontend).run(new Backend(new StringReader(
+            "Bob, Male, 1000, 111111111, 20, 20000\n"
+            + "Alice, Female, 1001, 222222222, 22, -20000\n"
+            + "Steven, Male, 1002, 333333333, 20, 500000\n"
+            )));
         // set the output back to standard out for running the test
         System.setOut(standardOut);
         // same for standard in
@@ -85,15 +89,19 @@ public class FrontEndDeveloperTests {
         System.setOut(new PrintStream(outputStreamCaptor));
         // instantiate when front end is implemented
         Object frontend = new Frontend();
-        ((Frontend)frontend).run(new Backend(new FileReader("src/bankDataSet.csv")));
+        ((Frontend)frontend).run(new Backend(new StringReader(
+            "Bob, Male, 1000, 111111111, 20, 20000\n"
+            + "Alice, Female, 1001, 222222222, 22, -20000\n"
+            + "Steven, Male, 1002, 333333333, 20, 500000\n"
+            )));
         // set the output back to standard out for running the test
         System.setOut(standardOut);
         // same for standard in
         System.setIn(standardIn);
         String appOutput = outputStreamCaptor.toString();
-        if (frontend == null || appOutput.contains("Dayne")
-                        || appOutput.contains("Argie")
-                        || appOutput.contains("Lulla")) {
+        if (frontend == null || appOutput.contains("Bob")
+                        || appOutput.contains("1000")
+                        || appOutput.contains("Male")) {
             // test failed
             fail("Test Fails");
         }
@@ -128,13 +136,17 @@ public class FrontEndDeveloperTests {
         System.setOut(new PrintStream(outputStreamCaptor));
         // instantiate when front end is implemented
         Object frontend = new Frontend();
-        ((Frontend)frontend).run(new Backend(new FileReader("src/bankDataSet.csv")));
+        ((Frontend)frontend).run(new Backend(new StringReader(
+            "Bob, Male, 1000, 111111111, 20, 20000\n"
+            + "Alice, Female, 1001, 222222222, 22, -20000\n"
+            + "Steven, Male, 1002, 333333333, 20, 500000\n"
+            )));
         // set the output back to standard out for running the test
         System.setOut(standardOut);
         // same for standard in
         System.setIn(standardIn);
         String appOutput = outputStreamCaptor.toString();
-        if (frontend == null || !appOutput.contains("Clabe, Sex: male, Age: 20, Phone Number: 891709924, Balance: -1542.0")) {
+        if (frontend == null || !appOutput.contains("Alice, Sex: Female, Age: 22, Phone Number: 222222222, Balance: -20000.0")) {
             // test failed
             fail("Test Fails");
         }
@@ -169,7 +181,11 @@ public class FrontEndDeveloperTests {
         System.setOut(new PrintStream(outputStreamCaptor));
         // instantiate when front end is implemented
         Object frontend = new Frontend();
-        ((Frontend)frontend).run(new Backend(new FileReader("src/bankDataSet.csv")));
+        ((Frontend)frontend).run(new Backend(new StringReader(
+            "Bob, Male, 1000, 111111111, 20, 20000\n"
+            + "Alice, Female, 1001, 222222222, 22, -20000\n"
+            + "Steven, Male, 1002, 333333333, 20, 500000\n"
+            )));
         // set the output back to standard out for running the test
         System.setOut(standardOut);
         // same for standard in
@@ -210,7 +226,11 @@ public class FrontEndDeveloperTests {
         System.setOut(new PrintStream(outputStreamCaptor));
         // instantiate when front end is implemented
         Object frontend = new Frontend();
-        ((Frontend)frontend).run(new Backend(new FileReader("src/bankDataSet.csv")));
+        ((Frontend)frontend).run(new Backend(new StringReader(
+            "Bob, Male, 1000, 111111111, 20, 20000\n"
+            + "Alice, Female, 1001, 222222222, 22, -20000\n"
+            + "Steven, Male, 1002, 333333333, 20, 500000\n"
+            )));
         // set the output back to standard out for running the test
         System.setOut(standardOut);
         // same for standard in
