@@ -163,8 +163,9 @@ public class Frontend {
       String typeIn = scan.next();
       if (typeIn.equals("X")) break;
       if (typeIn.equals("Yes")) {
-        System.out.println("Please enter the information in the following format:");
+        System.out.println("Please enter the information in the following format(using a space and a comma to split):");
         System.out.println("Name, Sex, Phone Number, Age, Balance");
+        System.out.println("For example: Nick, male, 123456789, 21, 2000");
         String whiteSpace = scan.nextLine();
         String addInfo = scan.nextLine();
         String[] arrayOfInfo = addInfo.split(", ");
@@ -244,7 +245,7 @@ public class Frontend {
   public static void main(String[] args) {
     Backend back;// new Backend
     try {
-      FileReader file = new FileReader("src/bankDataSet.csv");// the file Reader
+      FileReader file = new FileReader("./bankDataSet.csv");// the file Reader
       back = new Backend(file);
       run(back);// run the whole System
     } catch (FileNotFoundException e) {

@@ -23,7 +23,7 @@ public class DataWranglerTests {
     @BeforeEach
     public void setup() throws IOException, DataFormatException {
       BankDataReader reader = new BankDataReader();
-      data = reader.readDataSet(new FileReader("./BankDataSet.csv"));
+      data = reader.readDataSet(new FileReader("./bankDataSet.csv"));
       // make sure that it is in the same folder
 
     }
