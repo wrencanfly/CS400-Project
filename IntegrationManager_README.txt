@@ -27,8 +27,8 @@ Rory Cai (Back End Developer):
 
 Instructions to Build, Run and Test your Project:
 -------------------------------------------------
-Build and Run: Please use command "make" to compile every files and run the whole project 2
-Test: Please use command "make test" to test all the test files via junit5 automatically
+Build and Run: Please enter the "project2_red" dir and use command "make" to compile every files and run the whole project 2
+Test: Please enter the "project2_red" dir and use command "make test" to test all the test files via junit5 automatically
 
 Team Member Contributions:
 --------------------------
