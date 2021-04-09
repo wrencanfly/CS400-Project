@@ -48,16 +48,8 @@ public class CityDataReader {
         }
       }
       start.AddPath(target, Integer.parseInt(row.get(2)), Integer.parseInt(row.get(3)));
+      System.out.println(start.GetName()+" "+target.GetName());
+      data = reader.readLine();
     }
   }
- /* public static void main(String args[]) throws FileNotFoundException, IOException {
-    CityDataReader test = new CityDataReader();
-
-    FileReader cityfile = new FileReader("src/City.csv");
-    List<CityDataInterface> a = test.readingCityDataSet(cityfile);
-    for(int i=0;i<a.size();i++) {
-      System.out.println(a.get(i).GetName());
-    }
-    System.out.println(a.size());
-  }*/
 }
