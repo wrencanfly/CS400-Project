@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.DataFormatException;
-
+/**
+ * Read all the City information from the CityDataSet
+ * and return a list of CityDataInterface
+ * @author RoryCai
+ *
+ */
 public class CityDataReader {
   public List<CityDataInterface> readingCityDataSet(Reader CityInputFileReader)
           throws FileNotFoundException, IOException {
@@ -22,7 +27,14 @@ public class CityDataReader {
     }
     return resultList;
   }
-  
+  /**
+   * Read all the Path data from PathDataSet and renew the City information in City List
+   * @param PathInputFileReader
+   * @param cityList
+   * @throws FileNotFoundException
+   * @throws IOException
+   * @throws DataFormatException
+   */
   public void readingPathDataSet(Reader PathInputFileReader, List<CityDataInterface> cityList) 
           throws FileNotFoundException, IOException, DataFormatException {
     BufferedReader reader = new BufferedReader(PathInputFileReader);
