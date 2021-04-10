@@ -2,9 +2,9 @@
 public class CityData implements CityDataInterface{
   String name;
   int numberOfCitiesConnected;
-  CityDataInterface[] ListOfConnectedCity;
-  int[] ListOfDistance;
-  int[] ListOfCost;
+  CityDataInterface[] ListOfConnectedCity = new CityDataInterface[100];
+  int[] ListOfDistance = new int[100];
+  int[] ListOfCost = new int[100];
   public CityData(String name) {
     this.name = name;
     this.numberOfCitiesConnected = 0;
