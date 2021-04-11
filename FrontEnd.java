@@ -27,7 +27,7 @@ public class FrontEnd {
      * @param backend backend used
      * @param code command code
      */
-    public static void run(Backend backend, char code){
+    public void run(Backend backend, char code){
         switch (code){
             case 'S':
                 ShortestMode(backend);
@@ -61,7 +61,7 @@ public class FrontEnd {
      * Base mode. Provide user commands.
      * @param backend backend used
      */
-    public static void BaseMode(Backend backend) {
+    public void BaseMode(Backend backend) {
         System.out.println("===========================================");
         System.out.println("-----Welcome to Traffic Navigation Map-----\n");
         System.out.println("|------------------------------------------");
@@ -93,7 +93,7 @@ public class FrontEnd {
      * the user.
      * @param backend the backend used
      */
-    private static void ShortestMode(Backend backend) {
+    private void ShortestMode(Backend backend) {
         boardInfo("Shortest Path",backend);
         List<CityDataInterface> shortestPath =null;
         try{
@@ -105,7 +105,7 @@ public class FrontEnd {
                 info.append(shortestPath.get(i).GetName()).append(" -> ");
             }
             System.out.println("\n"+ info.toString() + shortestPath.get(shortestPath.size() - 1).GetName());
-            System.out.printf("\nWhich will take you %.2f hours by car and %.2f by train",(backend.getShortestDistance(start,end) / TRAIN_SPEED),(backend.getShortestDistance(start,end) / CAR_SPEED));
+            System.out.printf("\nWhich will take you %.2f hours by car and %.2f hours by train",(backend.getShortestDistance(start,end) / TRAIN_SPEED),(backend.getShortestDistance(start,end) / CAR_SPEED));
         }catch (NoSuchElementException e){
             System.out.println("NO PATH BETWEEN TWO CITIES");
         }
@@ -118,7 +118,7 @@ public class FrontEnd {
      * the user.
      * @param backend the backend used
      */
-    private static void MoneyMode(Backend backend) {
+    private void MoneyMode(Backend backend) {
         boardInfo("Money",backend);
         List<CityDataInterface> cheapestPath =null;
         try{
@@ -141,7 +141,7 @@ public class FrontEnd {
      * the user.
      * @param backend the backend used
      */
-    private static void ReachableMode(Backend backend){
+    private void ReachableMode(Backend backend){
         boardInfo("Direct Reachable",backend);
         List<CityDataInterface> directPath =null;
             directPath = backend.getDirectReach(current);
@@ -163,7 +163,7 @@ public class FrontEnd {
      * the backend, then show to the users.
      * @param backend the backend used
      */
-    private static void AddMode(Backend backend) {
+    private void AddMode(Backend backend) {
         boardInfo("Add Path",backend);
         backend.addPath(start,end,distance,cost);
         System.out.printf("\nPath from %s to %s has been added successfully: ", start, end);
@@ -175,7 +175,7 @@ public class FrontEnd {
      * the backend, then show to the users.
      * @param backend the backend used
      */
-    private static void DeleteMode(Backend backend) {
+    private void DeleteMode(Backend backend) {
         boardInfo("Delete Path",backend);
         System.out.printf("\nPath from %s to %s has been added successfully: ", start, end);
         try{
@@ -201,7 +201,7 @@ public class FrontEnd {
      * Tool method. To finish function back to base mode
      * @param backend the backend used
      */
-    private static void innerExit(Backend backend){
+    private void innerExit(Backend backend){
         while(true){
             System.out.println("\nPress X to back to base mode");
             if(new Scanner(System.in).next().charAt(0) == 'X'){
@@ -275,12 +275,13 @@ public class FrontEnd {
         return status;
     }
     public static void main(String[] args) {
+        FrontEnd frontEnd = new FrontEnd();
         Backend backend;
         try {
             FileReader city_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\CityDataSet.csv");
             FileReader path_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\PathDataSet.csv");
             backend = new Backend(city_data,path_data);
-            BaseMode(backend);
+            frontEnd.BaseMode(backend);
         } catch (FileNotFoundException e) {
             System.out.println("NO SUCH FILE");
         } catch (IOException e) {
