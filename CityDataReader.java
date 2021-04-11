@@ -60,7 +60,6 @@ public class CityDataReader {
         }
       }
       start.AddPath(target, Integer.parseInt(row.get(2)), Integer.parseInt(row.get(3)));
-      System.out.println(start.GetName()+" "+target.GetName());
       data = reader.readLine();
     }
   }
