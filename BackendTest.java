@@ -143,8 +143,8 @@ public class BackendTest {
    */
   @Test
   public void testAddPath() {
-    // Case 1: the path already exists
-    if (back.addPath("Nanchang", "Fuzhou", 200, 300)) {
+    // Case 1: the same path already exists
+    if (back.addPath("Nanchang", "Fuzhou", 500, 300)) {
       fail("Path has already existed.");
     }
     
@@ -156,7 +156,7 @@ public class BackendTest {
       // case handled.
     }
     
-    // Case 3: add two new path between two existing cities "Nanchang" to "Xian"
+    // Case 3: add two new path between two existing cities "Nanchang" to "Xian" and check direct reachable cities
     if (!back.addPath("Nanchang", "Xian", 200, 300)) {
       fail("Add path should return true!");
     }
@@ -175,6 +175,25 @@ public class BackendTest {
     if (!result.equals(target)) {
       fail("Path is added incorrectly!");
     }
+    
+    // Case 4: add a 0 distance and cost path between Guangzhou and Beijing, check new shortest path and cheapest cost
+    back.addPath("Guangzhou", "Beijing",0,0);
+    List<CityDataInterface> shortestPath = back.getShortestPath("Guangzhou", "Beijing");
+    String result2 = "[";
+    for (int i = 0; i < shortestPath.size() - 1; i++) {
+      result2 = result2 + shortestPath.get(i).GetName() + ", ";
+    }
+    result2 = result2 + shortestPath.get(shortestPath.size() - 1).GetName() + "]";
+    String target2 = "[Guangzhou, Beijing]";
+    if (!result2.equals(target2)) {
+      fail("Path is added incorrectly!");
+    }
+    
+    int cheapestCost = back.getCheapestCost("Guangzhou", "Beijing");
+    if (cheapestCost != 0) {
+      fail("Cheapest Cost should be 0");
+    }
+    
   }
   
   /**
@@ -211,6 +230,30 @@ public class BackendTest {
     if (!result.equals(target)) {
       fail("Path is added incorrectly!");
     }
+      
+    // Case 4: Delete a path between "Changsha" and "Wuhan", the check again the shortest path between "Guangzhou" and "Beijing"
+    back.deletePath("Changsha", "Wuhan");
+    List<CityDataInterface> shortestPath = back.getShortestPath("Guangzhou", "Beijing");
+    String result2 = "[";
+    for (int i = 0; i < shortestPath.size() - 1; i++) {
+      result2 = result2 + shortestPath.get(i).GetName() + ", ";
+    }
+    result2 = result2 + shortestPath.get(shortestPath.size() - 1).GetName() + "]";
+    String target2 = "[Guangzhou, Changsha, Nanchang, Hefei, Nanjing, Jinan, Beijing]";
+    if (!result2.equals(target2)) {
+      fail("Path is added incorrectly!");
+    }
     
+    // Check the direct Reach for Changsha to make sure it's correctly deleted
+    List<CityDataInterface> direct2 = back.getDirectReach("Changsha");
+    String result3 = "[";
+    for (int i = 0; i < direct2.size() - 1; i++) {
+      result3 = result3 + direct2.get(i).GetName() + ", ";
+    }
+    result3 = result3 + direct2.get(direct2.size() - 1).GetName() + "]";
+    String target3 = "[Nanchang, Guiyang]";
+    if (!result3.equals(target3)) {
+      fail("Path is added incorrectly!");
+    }
   }
 }
