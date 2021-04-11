@@ -88,5 +88,13 @@ public class CityData implements CityDataInterface{
     return this.GetName().equals(other.GetName());
   }
 
+  @Override
+  public void SetListOfConnectedCity(CityDataInterface[] array) {
+    this.ListOfConnectedCity = array;
+    
+  }
+  
+
+
   
 }
