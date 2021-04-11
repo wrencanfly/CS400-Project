@@ -61,7 +61,7 @@ public class FrontEnd {
      * Base mode. Provide user commands.
      * @param backend backend used
      */
-    private static void BaseMode(Backend backend) {
+    public static void BaseMode(Backend backend) {
         System.out.println("===========================================");
         System.out.println("-----Welcome to Traffic Navigation Map-----\n");
         System.out.println("|------------------------------------------");
@@ -71,9 +71,18 @@ public class FrontEnd {
                 "|- Press “A”, which stands for  “ADD”, will add a new path between two cities.\n" +
                 "|- Press “D”, which stands for “Delete”, will delete a path between two cities.\n" +
                 "|- Press “X” to exit");
-        System.out.println("\n|------------------------------------------");
-        System.out.println("==> CURRENT MODE: Base Mode<==");
-        System.out.println("\nNow you input:");
+        System.out.println("\n|-------------City List-----------------");
+        int n = 1;
+        for (CityDataInterface city: backend.cityList) {
+            System.out.print(city.GetName()+" ");
+            n = n + 1;
+            if(n % 4 == 0){
+                System.out.println("");
+            }
+        }
+        System.out.println("\n|---------------------------------------");
+        System.out.println("\n==> CURRENT MODE: Base Mode<==");
+        System.out.printf("\nNow you input:");
         code = new Scanner(System.in).next().charAt(0);
         exit_status = true;
         run(backend, code);
@@ -268,8 +277,8 @@ public class FrontEnd {
     public static void main(String[] args) {
         Backend backend;
         try {
-            FileReader city_data = new FileReader("./CityDataSet.csv");
-            FileReader path_data = new FileReader("./PathDataSet.csv");
+            FileReader city_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\CityDataSet.csv");
+            FileReader path_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\PathDataSet.csv");
             backend = new Backend(city_data,path_data);
             BaseMode(backend);
         } catch (FileNotFoundException e) {
