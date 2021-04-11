@@ -7,12 +7,12 @@ import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 public class FrontEnd {
-    public static Boolean exit_status = true;
-    public static char code = ' ';
-    public static final double CAR_SPEED = 100.0;
-    public static final double TRAIN_SPEED = 300.0;
-    private static String start, end, current;
-    private static int distance,cost;
+    private Boolean exit_status = true;
+    private char code = ' ';
+    private final double CAR_SPEED = 100.0;
+    private final double TRAIN_SPEED = 300.0;
+    private String start, end, current;
+    private int distance,cost;
 
     /**
      * Switch into different actions by different codes.
@@ -190,7 +190,7 @@ public class FrontEnd {
     /**
      * Tool method. To judge if exit the whole program. or just back to base mode.
      */
-    private static void ExitJudge() {
+    private void ExitJudge() {
         if (exit_status){
             System.out.println("-----Thanks for using Traffic Navigation Map-----\n");
             System.exit(-1);
@@ -217,7 +217,7 @@ public class FrontEnd {
      * @param mode_name the name of the mode
      * @param backend backend used
      */
-    private static void boardInfo(String mode_name,Backend backend){
+    private void boardInfo(String mode_name,Backend backend){
         System.out.println("\n|------------------------------------------");
         System.out.println("|-----Welcome to " + mode_name + " Mode------");
         if(mode_name.equals("Direct Reachable")){
@@ -264,7 +264,7 @@ public class FrontEnd {
      * @param city_name city's name needed to be validate
      * @return true if data is valid; false if not valid
      */
-    private static boolean cityNameValidation(Backend backend,String city_name){
+    private boolean cityNameValidation(Backend backend,String city_name){
         boolean status = false;
         for (CityDataInterface city: backend.cityList) {
             if(city.GetName().equals(city_name)){
@@ -278,8 +278,8 @@ public class FrontEnd {
         FrontEnd frontEnd = new FrontEnd();
         Backend backend;
         try {
-            FileReader city_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\CityDataSet.csv");
-            FileReader path_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\PathDataSet.csv");
+            FileReader city_data = new FileReader("./CityDataSet.csv");
+            FileReader path_data = new FileReader("./PathDataSet.csv");
             backend = new Backend(city_data,path_data);
             frontEnd.BaseMode(backend);
         } catch (FileNotFoundException e) {
