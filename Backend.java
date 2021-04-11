@@ -312,7 +312,18 @@ public class Backend implements BackendInterface{
       throw new NoSuchElementException();
     }
     
-    return startV.AddPath(endV, distance, cost);
+    if(distanceGraph.insertEdge(startV, endV, distance) && costGraph.insertEdge(startV, endV, cost)) {
+      List<CityDataInterface> connected = getDirectReach(source);
+      connected.add(endV);
+      CityDataInterface[] newArray = new CityDataInterface[100];
+      for (int i = 0; i < connected.size(); i++) {
+        newArray[i] = connected.get(i);
+      }
+      startV.SetListOfConnectedCity(newArray);
+      
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -345,82 +356,23 @@ public class Backend implements BackendInterface{
       throw new NoSuchElementException();
     }
     
-    List<CityDataInterface> connected = getDirectReach(source);
-    int originalSize = connected.size();
-    int targetIndex = 0;
-    for (int i = 0; i < connected.size(); i++) {
-      if (connected.get(i).equals(endV)) {
-        connected.remove(i);
-        targetIndex = i;
+    if(distanceGraph.removeEdge(startV, endV) && costGraph.removeEdge(startV, endV)) {
+      List<CityDataInterface> connected = getDirectReach(source);
+      for (int i = 0; i < connected.size(); i++) {
+        if(connected.get(i).equals(endV)) {
+          connected.remove(i);
+        }
       }
-    }
-    
-    if (connected.size() == originalSize) {
-      return false;
-    }
-    
-    // Delete Connected array
-    CityDataInterface[] newArray = new CityDataInterface[100];
-    for (int i = 0; i < connected.size(); i++) {
-      newArray[i] = connected.get(i);
-    }
-    startV.SetListOfConnectedCity(newArray);
-    
-    // Delete Distance array
-    int sizeOfDistanceArray = 0;
-    int[] distance = startV.GetListOfDistance();
-    for (int h = 0; h < distance.length; h++) {
-      if (distance[h] != 0) {
-        sizeOfDistanceArray = sizeOfDistanceArray + 1;
-      } else {
-        break;
+      CityDataInterface[] newArray = new CityDataInterface[100];
+      for (int i = 0; i < connected.size(); i++) {
+        newArray[i] = connected.get(i);
       }
-    }
-    ArrayList<Integer> list = new ArrayList<Integer>();
-    for (int i = 0; i < sizeOfDistanceArray; i++) {
-      list.add(distance[i]);
-    }
-    
-    for (int i = 0; i < list.size(); i++) {
-      if (list.get(i) == distance[targetIndex]) {
-        list.remove(i);
-      }
+      startV.SetListOfConnectedCity(newArray);
+      
+      return true;
     }
     
-    int[] newDistance = new int[100];
-    for(int i = 0; i < list.size(); i++) {
-      newDistance[i] = list.get(i);
-    }
-    startV.SetListOfDistance(newDistance);
-    
-    // Delete Cost array
-    int sizeOfCostArray = 0;
-    int[] cost = startV.GetListOfCost();
-    for (int h = 0; h < cost.length; h++) {
-      if (cost[h] != 0) {
-        sizeOfCostArray = sizeOfCostArray + 1;
-      } else {
-        break;
-      }
-    }
-    ArrayList<Integer> list2 = new ArrayList<Integer>();
-    for (int i = 0; i < sizeOfCostArray; i++) {
-      list2.add(cost[i]);
-    }
-    
-    for (int i = 0; i < list2.size(); i++) {
-      if (list2.get(i) == cost[targetIndex]) {
-        list2.remove(i);
-      }
-    }
-    
-    int[] newCost = new int[100];
-    for(int i = 0; i < list2.size(); i++) {
-      newCost[i] = list2.get(i);
-    }
-    startV.SetListOfCost(newCost);
-    
-    return true;
+    return false;
   }
   
 }
