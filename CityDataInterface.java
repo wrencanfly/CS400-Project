@@ -72,4 +72,9 @@ public interface CityDataInterface {
    * @return
    */
   public boolean equals(CityDataInterface other);
+  /**
+   * set the listofconnectedcity to given array
+   * @param array
+   */
+  public void SetListOfConnectedCity(CityDataInterface[] array);
 }
