@@ -82,7 +82,7 @@ public class FrontEnd {
         }
         System.out.println("\n|---------------------------------------");
         System.out.println("\n==> CURRENT MODE: Base Mode<==");
-        System.out.printf("\nNow you input:");
+        System.out.println("\nNow you input:");
         code = new Scanner(System.in).next().charAt(0);
         exit_status = true;
         Switcher(backend, code);
@@ -177,12 +177,12 @@ public class FrontEnd {
      */
     private void DeleteMode(Backend backend) {
         boardInfo("Delete Path",backend);
-        try{
-            backend.deletePath(start,end);
-        }catch (NoSuchElementException e){
-            System.out.println("NO PATH FOUND");
+        if(backend.deletePath(start,end)){
+            System.out.printf("\nPath from %s to %s has been deleted successfully: ", start, end);
+        }else{
+            System.out.println("\nCANNOT DELETE, BECAUSE NO PATH FOUND.");
         }
-        System.out.printf("\nPath from %s to %s has been deleted successfully: ", start, end);
+
         innerExit(backend);
 
     }
