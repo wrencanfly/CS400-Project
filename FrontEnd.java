@@ -1,3 +1,11 @@
+// --== CS400 File Header Information ==--
+// Name: Yingwei Song
+// Email: ysong279@wisc.edu
+// Team: red
+// Role: Backend Developer
+// TA: Mu Cai
+// Lecturer: Florian
+// Notes to Grader: none
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,12 +15,13 @@ import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 public class FrontEnd {
-    private Boolean exit_status = true;
-    private char code = ' ';
-    private final double CAR_SPEED = 100.0;
-    private final double TRAIN_SPEED = 300.0;
     private String start, end, current;
     private int distance,cost;
+    private char code = ' ';
+    private Boolean exit_status = true;
+    private final double CAR_SPEED = 100.0;
+    private final double TRAIN_SPEED = 300.0;
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Switch into different actions by different codes.
@@ -27,32 +36,33 @@ public class FrontEnd {
      * @param backend backend used
      * @param code command code
      */
-    public void Switcher(Backend backend, char code){
+    private void switcher(Backend backend, char code){
         switch (code){
             case 'S':
-                ShortestMode(backend);
+                shortestMode(backend);
                 break;
             case 'M':
-                MoneyMode(backend);
+                moneyMode(backend);
                 break;
             case 'R':
-                ReachableMode(backend);
+                reachableMode(backend);
                 break;
             case 'A':
-                AddMode(backend);
+                addMode(backend);
                 break;
             case 'D':
-                DeleteMode(backend);
+                deleteMode(backend);
                 break;
             case 'X':
-                ExitJudge();
-                BaseMode(backend);
+                if(!exit_status) {
+                    baseMode(backend);
+                }
                 break;
             default:
                 System.out.println("\n-----ERROR-----");
                 System.out.println("-----Command cannot find. Make sure your command in uppercase-----");
                 System.out.println("Please try again.\n\n");
-                BaseMode(backend);
+                baseMode(backend);
                 break;
         }
     }
@@ -61,7 +71,7 @@ public class FrontEnd {
      * Base mode. Provide user commands.
      * @param backend backend used
      */
-    public void BaseMode(Backend backend) {
+    public void baseMode(Backend backend) {
         System.out.println("===========================================");
         System.out.println("-----Welcome to Traffic Navigation Map-----\n");
         System.out.println("|------------------------------------------");
@@ -83,9 +93,10 @@ public class FrontEnd {
         System.out.println("\n|---------------------------------------");
         System.out.println("\n==> CURRENT MODE: Base Mode<==");
         System.out.println("\nNow you input:");
-        code = new Scanner(System.in).next().charAt(0);
+
+        code = scanner.next().charAt(0);
         exit_status = true;
-        Switcher(backend, code);
+        switcher(backend, code);
     }
 
     /**
@@ -93,7 +104,7 @@ public class FrontEnd {
      * the user.
      * @param backend the backend used
      */
-    private void ShortestMode(Backend backend) {
+    private void shortestMode(Backend backend) {
         boardInfo("Shortest Path",backend);
         List<CityDataInterface> shortestPath =null;
         try{
@@ -118,7 +129,7 @@ public class FrontEnd {
      * the user.
      * @param backend the backend used
      */
-    private void MoneyMode(Backend backend) {
+    private void moneyMode(Backend backend) {
         boardInfo("Money",backend);
         List<CityDataInterface> cheapestPath =null;
         try{
@@ -141,9 +152,9 @@ public class FrontEnd {
      * the user.
      * @param backend the backend used
      */
-    private void ReachableMode(Backend backend){
+    private void reachableMode(Backend backend){
         boardInfo("Direct Reachable",backend);
-        List<CityDataInterface> directPath =null;
+        List<CityDataInterface> directPath = null;
             directPath = backend.getDirectReach(current);
             if(directPath.size() == 0){
                 System.out.printf("\nNO DIRECTLY REACHABLE CITIES FROM %s",current);
@@ -158,12 +169,13 @@ public class FrontEnd {
             }
         innerExit(backend);
     }
+
     /**
      * Add path mode. This method will retrieve the input collect by board_info and pass it into
      * the backend, then show to the users.
      * @param backend the backend used
      */
-    private void AddMode(Backend backend) {
+    private void addMode(Backend backend) {
         boardInfo("Add Path",backend);
         backend.addPath(start,end,distance,cost);
         System.out.printf("\nPath from %s to %s has been added successfully: ", start, end);
@@ -175,7 +187,7 @@ public class FrontEnd {
      * the backend, then show to the users.
      * @param backend the backend used
      */
-    private void DeleteMode(Backend backend) {
+    private void deleteMode(Backend backend) {
         boardInfo("Delete Path",backend);
         if(backend.deletePath(start,end)){
             System.out.printf("\nPath from %s to %s has been deleted successfully: ", start, end);
@@ -188,25 +200,15 @@ public class FrontEnd {
     }
 
     /**
-     * Tool method. To judge if exit the whole program. or just back to base mode.
-     */
-    private void ExitJudge() {
-        if (exit_status){
-            System.out.println("-----Thanks for using Traffic Navigation Map-----\n");
-            System.exit(0);
-        }
-    }
-
-    /**
      * Tool method. To finish function back to base mode
      * @param backend the backend used
      */
     private void innerExit(Backend backend){
         while(true){
             System.out.println("\nPress X to back to base mode");
-            if(new Scanner(System.in).next().charAt(0) == 'X'){
+            if(scanner.next().charAt(0) == 'X'){
                 exit_status = false;
-                Switcher(backend,'X');
+                switcher(backend,'X');
                 break;
             }
         }
@@ -223,7 +225,6 @@ public class FrontEnd {
         if(mode_name.equals("Direct Reachable")){
             while(true){
                 System.out.println("Please input your desired city's name: ");
-                Scanner scanner = new Scanner(System.in);
                 current  = scanner.next();
                 if(!cityNameValidation(backend,current)) {
                     System.out.println("Make sure you input the right city's name. Try again.");
@@ -234,7 +235,6 @@ public class FrontEnd {
         }else{
             while(true){
                 System.out.println("Please input your starting city's name: ");
-                Scanner scanner = new Scanner(System.in);
                 start  = scanner.next();
                 if(!cityNameValidation(backend,start)) {
                     System.out.println("Make sure you input the right city's name. Try again.");
@@ -274,14 +274,15 @@ public class FrontEnd {
         }
         return status;
     }
+
     public static void main(String[] args) {
         FrontEnd frontEnd = new FrontEnd();
         Backend backend;
         try {
-            FileReader city_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\CityDataSet.csv");
-            FileReader path_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\PathDataSet.csv");
+            FileReader city_data = new FileReader("./CityDataSet.csv");
+            FileReader path_data = new FileReader("./PathDataSet.csv");
             backend = new Backend(city_data,path_data);
-            frontEnd.BaseMode(backend);
+            frontEnd.baseMode(backend);
         } catch (FileNotFoundException e) {
             System.out.println("NO SUCH FILE");
         } catch (IOException e) {
@@ -291,7 +292,6 @@ public class FrontEnd {
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
 }
