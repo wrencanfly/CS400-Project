@@ -177,12 +177,12 @@ public class FrontEnd {
      */
     private void DeleteMode(Backend backend) {
         boardInfo("Delete Path",backend);
-        System.out.printf("\nPath from %s to %s has been deleted successfully: ", start, end);
         try{
             backend.deletePath(start,end);
         }catch (NoSuchElementException e){
             System.out.println("NO PATH FOUND");
         }
+        System.out.printf("\nPath from %s to %s has been deleted successfully: ", start, end);
         innerExit(backend);
 
     }
