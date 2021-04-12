@@ -27,7 +27,7 @@ public class FrontEnd {
      * @param backend backend used
      * @param code command code
      */
-    public void run(Backend backend, char code){
+    public void Switcher(Backend backend, char code){
         switch (code){
             case 'S':
                 ShortestMode(backend);
@@ -49,7 +49,7 @@ public class FrontEnd {
                 BaseMode(backend);
                 break;
             default:
-                System.out.println("-----ERROR-----");
+                System.out.println("\n-----ERROR-----");
                 System.out.println("-----Command cannot find. Make sure your command in uppercase-----");
                 System.out.println("Please try again.\n\n");
                 BaseMode(backend);
@@ -85,7 +85,7 @@ public class FrontEnd {
         System.out.printf("\nNow you input:");
         code = new Scanner(System.in).next().charAt(0);
         exit_status = true;
-        run(backend, code);
+        Switcher(backend, code);
     }
 
     /**
@@ -177,7 +177,7 @@ public class FrontEnd {
      */
     private void DeleteMode(Backend backend) {
         boardInfo("Delete Path",backend);
-        System.out.printf("\nPath from %s to %s has been added successfully: ", start, end);
+        System.out.printf("\nPath from %s to %s has been deleted successfully: ", start, end);
         try{
             backend.deletePath(start,end);
         }catch (NoSuchElementException e){
@@ -193,7 +193,7 @@ public class FrontEnd {
     private void ExitJudge() {
         if (exit_status){
             System.out.println("-----Thanks for using Traffic Navigation Map-----\n");
-            System.exit(-1);
+            System.exit(0);
         }
     }
 
@@ -206,7 +206,7 @@ public class FrontEnd {
             System.out.println("\nPress X to back to base mode");
             if(new Scanner(System.in).next().charAt(0) == 'X'){
                 exit_status = false;
-                run(backend,'X');
+                Switcher(backend,'X');
                 break;
             }
         }
@@ -278,8 +278,8 @@ public class FrontEnd {
         FrontEnd frontEnd = new FrontEnd();
         Backend backend;
         try {
-            FileReader city_data = new FileReader("./CityDataSet.csv");
-            FileReader path_data = new FileReader("./PathDataSet.csv");
+            FileReader city_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\CityDataSet.csv");
+            FileReader path_data = new FileReader("G:\\AAWISC-Spring 2021\\CS400_git\\CS400-Project-One\\PathDataSet.csv");
             backend = new Backend(city_data,path_data);
             frontEnd.BaseMode(backend);
         } catch (FileNotFoundException e) {
@@ -288,6 +288,8 @@ public class FrontEnd {
             System.out.println("IO EXCEPTION");
         } catch (DataFormatException e) {
             System.out.println("WRONG DATA FORMAT");
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
     }
