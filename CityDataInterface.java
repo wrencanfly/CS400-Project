@@ -1,3 +1,11 @@
+// --== CS400 File Header Information ==--
+// Name: Yuanqing Cai
+// Email: cai92@wisc.edu
+// Team: AF Red
+// Role: Data Wrangler
+// TA: Mu Cai
+// Lecturer: Florian
+// Notes to Grader: None
 public interface CityDataInterface {
   
   /**
