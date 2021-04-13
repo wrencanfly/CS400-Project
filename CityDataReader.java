@@ -1,5 +1,12 @@
+// --== CS400 File Header Information ==--
+// Name: Yuanqing Cai
+// Email: cai92@wisc.edu
+// Team: AF Red
+// Role: Data Wrangler
+// TA: Mu Cai
+// Lecturer: Florian
+// Notes to Grader: None
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,6 +22,13 @@ import java.util.zip.DataFormatException;
  *
  */
 public class CityDataReader {
+	/**
+	 * Read all the city data from the CityDataSet.csv and return a list of City
+	 * @param CityInputFileReader
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
   public List<CityDataInterface> readingCityDataSet(Reader CityInputFileReader)
           throws FileNotFoundException, IOException {
     BufferedReader reader = new BufferedReader(CityInputFileReader);
